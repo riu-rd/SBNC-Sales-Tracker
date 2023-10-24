@@ -1,0 +1,43 @@
+
+* {
+     margin: 0; 
+     padding: 0;
+     min-height: 100%;
+}
+nav{
+     position: sticky; 
+     top: 0;
+}
+.main-div {
+     display: flex;
+     flex-flow: column wrap;
+     flex: 200px;
+}
+.text-center {
+     margin: auto;
+     text-align: center;
+     border: solid;
+     padding:5em;
+     border-radius: 25px;
+}
+.text-center div {
+     padding: 5px;
+}
+div#banner { 
+     top: 0; 
+     left: 0; 
+     background-color: blue; 
+     width: 100%; 
+     
+}
+div#banner-content { 
+     width: 800px; 
+     margin: 0 auto; 
+     padding: 10px; 
+     border: 1px #000;
+}
+#login-in {
+     margin: auto;
+     padding: 1%;
+     padding-top: 200px;
+}
