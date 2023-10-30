@@ -6,7 +6,7 @@
           </div>
      </nav>
      <div id="login-in">
-          <form action="register" method="POST">
+          <form action="/register" method="POST">
                <div class="text-center">
                     <div>
                          Register
@@ -22,7 +22,7 @@
                               Email:
                          </div>
                          <div>
-                              <input type="text" name="email" required>
+                              <input type="email" name="email" required>
                          </div>
                          <div>
                               Password:
@@ -38,7 +38,9 @@
                               <button type="submit">Register</button>
                          </div>
                          <div>
-                              {{ errorMessage }}
+                              {{#if errorMessage }}
+                                   <h1>{{errorMessage}}</h1>
+                              {{/if}}
                          </div>
                          <div>
                               <a href="https://www.google.com">forget password!</a>

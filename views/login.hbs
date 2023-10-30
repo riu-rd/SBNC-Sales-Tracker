@@ -6,37 +6,44 @@
           </div>
      </nav>
      <div id="login-in">
-          <div class="text-center">
-               <div>
-                    Login
+          <form action="/login" method="POST">
+               <div class="text-center">
+                    <div>
+                         Login
+                    </div>
+                    <div >
+                         <div>
+                              Email:
+                         </div>
+                         <div>
+                              <input type="email" name="email" id="email" required>
+                         </div>
+                         <div>
+                              Password:
+                         </div>
+                         <div>
+                              <input type="password" name="password" id="password" required>
+                         </div>
+                         <div>
+                              <input type="checkbox" name="remember me">
+                              <label for="remember me">Remember me</label>
+                         </div>
+                         <div>
+                              {{#if messages.error }}
+                                   <h1>{{messages.error}}</h1>
+                              {{/if}}
+                         </div>
+                         <div>
+                              <input type="submit" value="Submit">
+                         </div>
+                         <div>
+                              <a href="https://www.google.com">forget password!</a>
+                         </div>
+                         <div>
+                              New User? Sign up <a href="register">here!</a>
+                         </div>
+                    </div>
                </div>
-               <div >
-                    <div>
-                         Email:
-                    </div>
-                    <div>
-                         <input type="text">
-                    </div>
-                    <div>
-                         Password:
-                    </div>
-                    <div>
-                         <input type="password">
-                    </div>
-                    <div>
-                         <input type="checkbox" name="remember me">
-                         <label for="remember me">Remember me</label>
-                    </div>
-                    <div>
-                         <input type="submit" value="Submit">
-                    </div>
-                    <div>
-                         <a href="https://www.google.com">forget password!</a>
-                    </div>
-                    <div>
-                         New User? Sign up <a href="register">here!</a>
-                    </div>
-               </div>
-          </div>
+          </form>
      </div>
 </div>
