@@ -2,3 +2,72 @@
 <form action="/logout?_method=DELETE" method="POST">
      <button type="submit">Log Out</button>
 </form>
+
+<button id='addBtn'>Add Transaction</button>
+
+<div id ='display'>
+  <table id='tTable'>
+        <tr id='tHeader'>
+            <th>Date</th>
+            <th>Name of Customer</th>
+            <th>C-Series</th>
+            <th>OS</th>
+            <th>C-Invoice</th>
+            <th>Seller</th>
+            <th>Assembler</th>
+            <th>Total</th>
+            <th>VAT Sale</th>
+            <th>VAT Amount</th>
+        </tr>
+        {{#each transactions}}
+        <tr>
+            <td>{{date}}</td>
+            <td>{{name}}</td>
+            <td>{{series}}</td>
+            <td>{{os}}</td>
+            <td>{{invoice}}</td>
+            <td>{{seller}}</td>
+            <td>{{assembler}}</td>
+            <td>{{total}}</td>
+            <td>{{vatsale}}</td>
+            <td>{{vatamount}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<div id='addContainer'>
+  <h2>Data Entry Form</h2>
+  <form id='addForm'>
+    <fieldset>
+      <label for='addDate'>Date: </label>
+      <input type='date' id="addDate" name='addDate' onchange="console.log(this.value);" required/>
+      <label for='addName'>Customer Name: </label>
+      <input type='text' id="addName"name='addName' required/>
+    </fieldset>
+    <fieldset>
+      <label for='addSeries'>C-Series: </label>
+      <input type='number' id="addSeries" name='addSeries' required/>
+      <label for='addOS'>OS: </label>
+      <input type='number' id="addOS" name='addOS' required/>
+      <label for='addInvoice'>C-Invoice: </label>
+      <input type='number' id="addInvoice" name='addInvoice' required/>
+    </fieldset>
+    <fieldset>
+      <label for='addSeller'>Seller: </label>
+      <input type='text' id="addSeller" name='addSeller' required/>
+      <label for='addAssembler'>Assembler: </label>
+      <input type='text' id="addAssembler" name='addAssembler' required/>
+    </fieldset>
+    <fieldset>
+       <label for='addTotal'>Total: </label>
+      <input type='number' id="addTotal" name='addTotal' required/>
+      <label for='addVatsale'>VAT Sale: </label>
+      <input type='number' id="addVatsale" name='addVatsale' required/>
+      <label for='addVatamount'>VAT Amount: </label>
+      <input type='number' id="addVatamount" name='addVatamount' required/>
+    </fieldset>
+    <button type='submit' id='submitBtn' value='submit'>Submit</button>
+    <button type='reset' id='cancelBtn' value='reset'>Cancel</button>
+  </form>
+</div>

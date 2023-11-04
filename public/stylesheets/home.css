@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Palanquin+Dark:wght@700&display=swap');
+
+:root {
+    --maincolor: #0c2075;
+    --submit: #00A97F;
+    --cancel: rgb(255, 56, 86);
+    box-sizing: inherit;
+    font-family: inherit;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+#addBtn {
+  background-color: var(--maincolor);
+    color: white;
+}
+
+/* For the Table */
+#display {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+}
+
+#tTable, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+  padding: 5px 30px;
+}
+
+#tHeader {
+  background-color: var(--maincolor);
+}
+
+th {
+  font-weight: bold;
+  color: white
+}
+
+/* For the Data Entry Form */
+#addContainer {
+  border: 3px solid var(--maincolor);
+  position:absolute;
+  display: none;
+  flex-direction: column;
+  width: 30%;
+  height: 80%;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 10px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  margin: -80px 0;
+  transform: translate(-50%, -20%);
+}
+
+#addContainer h2 {
+  color: var(--maincolor);
+  border-bottom: 3px outset var(--maincolor);
+  width: 70%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+form#addForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+form#addForm fieldset {
+  border: none;
+  margin: 0 10px;
+  padding: 2rem 0;
+  border-bottom: 4px solid var(--maincolor);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+    align-self: flex-start;
+  }
+
+#submitBtn, #cancelBtn {
+ padding: 0.3em 1em;
+ background-color: transparent;
+ border-radius: .3em;
+ position: relative;
+ overflow: hidden;
+ cursor: pointer;
+ transition: .5s;
+ font-weight: 400;
+ font-size: 17px;
+ border: 1px solid;
+ font-family: inherit;
+ text-transform: uppercase;
+ 
+ z-index: 1;
+}
+
+#submitBtn {
+  color: var(--submit);
+}
+
+#cancelBtn {
+  color: var(--cancel);
+}
+
+#submitBtn::before, #submitBtn::after,
+#cancelBtn::before, #cancelBtn::after{
+ content: '';
+ display: block;
+ width: 50px;
+ height: 50px;
+ transform: translate(-50%, -50%);
+ position: absolute;
+ border-radius: 50%;
+ z-index: -1;
+ 
+ transition: 1s ease;
+}
+
+#submitBtn::before, #submitBtn::after {
+  background-color: var(--submit);
+}
+
+#cancelBtn::before, #cancelBtn::after {
+  background-color: var(--cancel);
+}
+
+#submitBtn::before, #cancelBtn::before {
+ top: -1em;
+ left: -1em;
+}
+
+#submitBtn::after, #cancelBtn::after {
+ left: calc(100% + 1em);
+ top: calc(100% + 1em);
+}
+
+#submitBtn:hover::before, #submitBtn:hover::after,
+#cancelBtn:hover::before,
+#cancelBtn:hover::after{
+ height: 410px;
+ width: 410px;
+}
+
+#submitBtn:hover, #cancelBtn:hover {
+ color: white;
+}
+
+#submitBtn:active, #cancelBtn:active {
+ filter: brightness(.8);
+}

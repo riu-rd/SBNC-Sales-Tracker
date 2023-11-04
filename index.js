@@ -20,9 +20,8 @@ initializePassport(
   async id => await User.find({id: id})
 )
 
-const port = 3000
-
-const app = express()
+const port = 3000;
+const app = express();
 
 app.use(express.static(__dirname + '/public'))
 app.use(express.json())
@@ -37,6 +36,12 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
+app.use(express.json());
+
+app.get("/favicon.ico", (req, res) => {
+        res.status(204);
+});
+
 const indexRouter = require('./routes/index')
 const loginRouter = require('./routes/login')
 const registerRouter = require('./routes/register')
@@ -48,7 +53,7 @@ app.use('/register',registerRouter)
 app.engine('hbs',exphbs.engine({extname: '.hbs'}))
 app.set('view engine','hbs')
 app.set('views','./views')
-
+app.set("view cache", false);
 
 
 mongoose.connect(process.env.DATABASE_URL, {

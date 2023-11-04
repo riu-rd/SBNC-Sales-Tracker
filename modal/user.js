@@ -1,22 +1,23 @@
+const { SchemaTypes } = require('mongoose')
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
      name: {
-          type: String,
+          type: SchemaTypes.String,
           required: true,
           unique: true
      },
      email: {
-          type: String,
+          type: SchemaTypes.String,
           required: true,
           unique: true
      },
      password: {
-          type:String,
+          type: SchemaTypes.String,
           required: true
      },
      access: {
-          type: Number,
+          type: SchemaTypes.Number,
           required: true
      }
 })
