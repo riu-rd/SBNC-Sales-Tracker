@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
           type:String,
           required: true
      },
+     number: {
+          type: String,
+     },
      access: {
           type: Number,
           required: true

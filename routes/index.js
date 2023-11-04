@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../modal/user')
+const User = require('../models/user')
 
 
 
