@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const controller = require('../../controllers/RegisterController')
+const controller = require('../../controllers/registerController')
 
 //renders the website
 router.get('/',checkNotAutheticated, (req, res) => {
