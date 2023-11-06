@@ -5,7 +5,7 @@ const controller = require('../../controllers/registerController')
 
 //renders the website
 router.get('/',checkNotAutheticated, (req, res) => {
-     res.render('register')
+     res.render('register', {title: 'Register'})
 })
 
 //makes the account and store withint the database
