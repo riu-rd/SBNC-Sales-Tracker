@@ -25,22 +25,28 @@ const transactionSchema = new mongoose.Schema({
      },
      seller: {
          type: SchemaTypes.String,
+         required: true
      },
      assembler: {
          type: SchemaTypes.String,
+         required: true
      },
      total: {
          type: SchemaTypes.Number,
-         required: true,
+         required: true
      },
      vatsale: {
          type: SchemaTypes.Number,
-         required: true,
+         required: true
      },
      vatamount: {
          type: SchemaTypes.Number,
-         required: true,
+         required: true
      },
+     branch: {
+        type: SchemaTypes.String,
+        required: true
+    }
  });
  
  module.exports = mongoose.model('transaction', transactionSchema);

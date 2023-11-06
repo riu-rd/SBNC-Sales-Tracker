@@ -13,19 +13,27 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-#addBtn {
+/* For the Table */
+#addBtn, #downloadBtn {
   background-color: var(--maincolor);
     color: white;
+    float: right;
+    margin: 5px 0;
+    padding: 2px;
 }
 
-/* For the Table */
 #display {
   display: block;
   position: relative;
   margin: 0 auto;
-  width: 80%;
+  width: 85%;
   align-items: center;
   justify-content: center;
+  clear: right;
+}
+
+tr:hover {
+  background-color: #ececec;
 }
 
 #tTable, th, td {

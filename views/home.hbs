@@ -3,12 +3,12 @@
      <button type="submit">Log Out</button>
 </form>
 
-<button id='addBtn'>Add Transaction</button>
-
 <div id ='display'>
+  <button id='addBtn'>Add Transaction</button>
   <table id='tTable'>
         <tr id='tHeader'>
             <th>Date</th>
+            <th>Branch</th>
             <th>Name of Customer</th>
             <th>C-Series</th>
             <th>OS</th>
@@ -17,11 +17,12 @@
             <th>Assembler</th>
             <th>Total</th>
             <th>VAT Sale</th>
-            <th>VAT Amount</th>
+            <th>VAT Amount</th> 
         </tr>
         {{#each transactions}}
         <tr>
             <td>{{date}}</td>
+            <td>{{branch}}</td>
             <td>{{name}}</td>
             <td>{{series}}</td>
             <td>{{os}}</td>
@@ -30,10 +31,11 @@
             <td>{{assembler}}</td>
             <td>{{total}}</td>
             <td>{{vatsale}}</td>
-            <td>{{vatamount}}</td>
+            <td>{{vatamount}}</td> 
         </tr>
         {{/each}}
-    </table>
+  </table>
+  <a id='downloadLink' href="#"><button id='downloadBtn'>Download Spreadsheet</button></a>
 </div>
 
 <div id='addContainer'>
@@ -42,6 +44,8 @@
     <fieldset>
       <label for='addDate'>Date: </label>
       <input type='date' id="addDate" name='addDate' onchange="console.log(this.value);" required/>
+      <label for='addBranch'>Branch: </label>
+      <input type='text' id="addBranch" name='addBranch' required/>
       <label for='addName'>Customer Name: </label>
       <input type='text' id="addName"name='addName' required/>
     </fieldset>

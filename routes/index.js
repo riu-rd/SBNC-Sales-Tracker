@@ -4,17 +4,16 @@ const User = require('../modal/user')
 const Transaction = require('../modal/transaction');
 const transactionsController = require("../controllers/transactionsController.js");
 
-
-
 router.get('/', checkAuthenticated, async (req, res) => {
      console.log(req.session.passport.user)
      try {
-          user = await User.findById(req.session.passport.user);
-          transactions = await Transaction.find({});
+          let user = await User.findById(req.session.passport.user);
+          let transactions = await Transaction.find({});
 
-          transactionArray = transactions.map(transaction => {
+          let transactionArray = transactions.map(transaction => {
                return {
                  date: transaction.date,
+                 branch: transaction.branch,
                  name: transaction.name,
                  series: transaction.series,
                  os: transaction.os,
@@ -25,15 +24,20 @@ router.get('/', checkAuthenticated, async (req, res) => {
                  vatsale: transaction.vatsale,
                  vatamount: transaction.vatamount 
           }});
+          if(transactionArray.length <= 0) {
+               transactionArray = [{date: "no data", branch: "no data", name: "no data", series: 0, os: 0, invoice: 0,
+                                   seller: "no data", assembler: "no data", total: 0, vatsale: 0, vatamount: 0}];
+          }
+
+          res.render('home', {
+               title: "Dashboard",
+               name: user.name,
+               transactions: transactionArray,
+               layout: "dashboard"
+          });
      } catch (err){
           console.log(err)
      }
-     res.render('home', {
-          title: "Dashboard",
-          name: user.name,
-          transactions: transactionArray,
-          layout: "dashboard"
-     });
 });
 
 router.post('/', async (req,res) => {
@@ -58,5 +62,6 @@ function checkAuthenticated(req, res, next){
 }
 
 router.post("/post-transaction", transactionsController.postTransaction);
+router.get("/download-transactions", transactionsController.downloadTransactions);
 
 module.exports = router
