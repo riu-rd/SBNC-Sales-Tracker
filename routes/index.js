@@ -11,7 +11,7 @@ router.get('/', checkAuthenticated, async (req, res) => {
      } catch (err){
           console.log(err)
      }
-     res.render('home', {name: user.name})
+     res.render('home', {name: user.name, title: 'Home'})
 })
 
 router.post('/', async (req,res) => {
