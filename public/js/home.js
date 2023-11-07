@@ -2,14 +2,16 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const addBtn = document.getElementById("addBtn");
     const cancelBtn = document.getElementById("cancelBtn");
     const entryForm = document.getElementById("addForm");
-    const entryContainer = document.getElementById("addContainer");
+    const entryContainer = document.getElementById("container");
+    const overlay = document.getElementById("overlay");
     const downloadBtn = document.getElementById("downloadBtn");
-    const downloadLink = document.getElementById("downloadLink");
+    const rows = document.querySelectorAll(".rowData");
     
     //Add Button Event
     addBtn.addEventListener("click", (e) => {
         e.preventDefault();
         entryContainer.style.display = 'flex';
+        overlay.style.display = 'block';
     });
 
     entryForm?.addEventListener("submit", async () => {
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     //Cancel Button in Data Entry Form event
     cancelBtn?.addEventListener("click", (e) => {
         entryContainer.style.display = 'none';
+        overlay.style.display = 'none';
     });
 
     //Download Button Event
@@ -76,4 +79,14 @@ document.addEventListener("DOMContentLoaded", (e) => {
             console.error(err);
         });
     });
+
+    //Clickable table rows
+    rows.forEach(row => {
+        row.addEventListener('click', function() {
+            const cells = this.cells;
+            const rowData = Array.from(cells).map(cell => cell.textContent);
+            console.log(rowData);
+            alert(rowData);
+        });
+    })
 });
