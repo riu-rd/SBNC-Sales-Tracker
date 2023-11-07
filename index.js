@@ -41,11 +41,13 @@ const indexRouter = require('./routes/index')
 const loginRouter = require('./routes/loginpage/login')
 const registerRouter = require('./routes/loginpage/register')
 const trouble_loggingRouter = require('./routes/loginpage/trouble_logging')
+const userListRouter = require('./routes/userlist')
 
 app.use('/', indexRouter)
 app.use('/login', loginRouter)
 app.use('/register',registerRouter)
 app.use('/trouble_Logging', trouble_loggingRouter)
+app.use('/userlist', userListRouter)
 
 app.engine('hbs',exphbs.engine({extname: '.hbs'}))
 app.set('view engine','hbs')
