@@ -1,4 +1,4 @@
-const User = require('../models/user')
+const User = require('../modal/user')
 const bcrypt = require('bcrypt')
 
 const RegisterController = {
