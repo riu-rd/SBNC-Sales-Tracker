@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt')
 const flash = require('express-flash')
 const session = require('express-session')
 const passport = require('passport')
-const User = require('./models/user')
+const User = require('./modal/user')
 const methodOverride = require('method-override')
 
 const initializePassport = require('./passport-config')

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../../models/user')
+const User = require('../../modal/user')
 
 router.get('/', async(req, res) => {
      res.render('trouble_logging')
