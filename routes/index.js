@@ -5,7 +5,6 @@ const User = require('../modal/user')
 
 
 router.get('/', checkAuthenticated, async (req, res) => {
-     console.log(req.session.passport.user)
      try {
           user = await User.findById(req.session.passport.user)
      } catch (err){
