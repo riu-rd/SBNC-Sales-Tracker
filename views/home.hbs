@@ -5,6 +5,13 @@
 
 <!-- Displaying the data -->
 <div id ='display'>
+  <form>
+    <input type="search" id="searchBar" placeholder="Search"/>
+    <label for="from_date">From:  </label>
+    <input type="date" name="from_date" id="from_date"/>
+    <label for="from_date">To:  </label>
+    <input type='date' name="to_date" id="to_date"/>
+  </form>
   <button id='addBtn'>Add Transaction</button>
   <table id='tTable'>
         <tr id='tHeader'>
@@ -80,43 +87,3 @@
     <button type='reset' id='cancelBtn' value='reset'>Cancel</button>
   </form>
 </div>
-
-<!-- View shows up when a row is clicked 
-<div id='container'>
-  <h2>Transaction Details</h2>
-  <form id='form'>
-    <fieldset>
-      <label for='addDate'>Date: </label>
-      <input type='date' id="addDate" name='addDate' onchange="console.log(this.value);" required/>
-      <label for='addBranch'>Branch: </label>
-      <input type='text' id="addBranch" name='addBranch' required/>
-      <label for='addName'>Customer Name: </label>
-      <input type='text' id="addName"name='addName' required/>
-    </fieldset>
-    <fieldset>
-      <label for='addSeries'>C-Series: </label>
-      <input type='number' id="addSeries" name='addSeries' required/>
-      <label for='addOS'>OS: </label>
-      <input type='number' id="addOS" name='addOS' required/>
-      <label for='addInvoice'>C-Invoice: </label>
-      <input type='number' id="addInvoice" name='addInvoice' required/>
-    </fieldset>
-    <fieldset>
-      <label for='addSeller'>Seller: </label>
-      <input type='text' id="addSeller" name='addSeller' required/>
-      <label for='addAssembler'>Assembler: </label>
-      <input type='text' id="addAssembler" name='addAssembler' required/>
-    </fieldset>
-    <fieldset>
-       <label for='addTotal'>Total: </label>
-      <input type='number' id="addTotal" name='addTotal' required/>
-      <label for='addVatsale'>VAT Sale: </label>
-      <input type='number' id="addVatsale" name='addVatsale' required/>
-      <label for='addVatamount'>VAT Amount: </label>
-      <input type='number' id="addVatamount" name='addVatamount' required/>
-    </fieldset>
-    <button type='submit' id='submitBtn' value='submit'>Submit</button>
-    <button type='reset' id='cancelBtn' value='reset'>Cancel</button>
-  </form>
-</div>
--->

@@ -32,6 +32,11 @@ body {
   clear: right;
 }
 
+#searchBar, #to_date, #from_date, label[for='from_date'], label[for='to_date'] {
+  float: left;
+  margin: 0 5px;
+}
+
 tr:hover {
   background-color: #ececec;
 }
