@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const addBtn = document.getElementById("addBtn");
     const cancelBtn = document.getElementById("cancelBtn");
     const entryForm = document.getElementById("addForm");
+    const filterForm = document.getElementById("filterForm");
     const entryContainer = document.getElementById("container");
     const overlay = document.getElementById("overlay");
     const downloadBtn = document.getElementById("downloadBtn");
@@ -42,6 +43,20 @@ document.addEventListener("DOMContentLoaded", (e) => {
 				throw new Error('Error! Form submission failed');
 			}
 			return res.json();
+		})
+		.catch(error => {
+			console.error(error);
+		});
+    });
+
+    filterForm?.addEventListener("submit", async () => {
+
+        console.log("Filter request sending...");
+        let from_date = filterForm.elements.from_date.value;
+        let to_date = filterForm.elements.to_date.value;
+
+        fetch(`/filter?from_date=${from_date}&to_date=${to_date}`, {
+			method: 'GET'
 		})
 		.catch(error => {
 			console.error(error);

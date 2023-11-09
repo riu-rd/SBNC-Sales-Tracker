@@ -5,12 +5,13 @@
 
 <!-- Displaying the data -->
 <div id ='display'>
-  <form>
+  <form id="filterForm">
     <input type="search" id="searchBar" placeholder="Search"/>
     <label for="from_date">From:  </label>
     <input type="date" name="from_date" id="from_date"/>
     <label for="from_date">To:  </label>
     <input type='date' name="to_date" id="to_date"/>
+    <button type="submit" id="filterBtn">Apply Filter</button>
   </form>
   <button id='addBtn'>Add Transaction</button>
   <table id='tTable'>

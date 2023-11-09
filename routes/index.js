@@ -24,6 +24,13 @@ router.get('/', checkAuthenticated, async (req, res) => {
                  vatsale: transaction.vatsale,
                  vatamount: transaction.vatamount 
           }});
+
+          transactionArray.sort((a, b) => {
+               const dateA = new Date(a.date);
+               const dateB = new Date(b.date);
+               return dateB - dateA;
+          });
+
           if(transactionArray.length <= 0) {
                transactionArray = [{date: "no data", branch: "no data", name: "no data", series: 0, os: 0, invoice: 0,
                                    seller: "no data", assembler: "no data", total: 0, vatsale: 0, vatamount: 0}];
@@ -63,5 +70,6 @@ function checkAuthenticated(req, res, next){
 
 router.post("/post-transaction", transactionsController.postTransaction);
 router.get("/download-transactions", transactionsController.downloadTransactions);
+router.get("/filter", transactionsController.filterTransaction);
 
 module.exports = router

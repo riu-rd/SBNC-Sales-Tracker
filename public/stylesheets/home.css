@@ -32,7 +32,7 @@ body {
   clear: right;
 }
 
-#searchBar, #to_date, #from_date, label[for='from_date'], label[for='to_date'] {
+#searchBar, #to_date, #from_date, label[for='from_date'], label[for='to_date'], #filterBtn {
   float: left;
   margin: 0 5px;
 }
@@ -74,7 +74,7 @@ th {
   position:absolute;
   flex-direction: column;
   width: 30%;
-  height: 80%;
+  height: 65%;
   align-items: center;
   justify-content: center;
   z-index: 10;
@@ -103,8 +103,8 @@ form#addForm {
 
 form#addForm fieldset {
   border: none;
-  margin: 0 10px;
-  padding: 2rem 0;
+  margin: 0 5px;
+  padding: 1rem 0;
   border-bottom: 4px solid var(--maincolor);
   display: flex;
   flex-direction: column;
