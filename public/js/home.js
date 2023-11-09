@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         overlay.style.display = 'block';
     });
 
-    entryForm?.addEventListener("submit", async () => {
+    entryForm?.addEventListener("submit", async (e) => {
 
         const formData = {
             date: entryForm.elements.addDate.value,
@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
             vatsale: entryForm.elements.addVatsale.value,
             vatamount: entryForm.elements.addVatamount.value
         };
-
-        fetch('/post-transaction', {
+        e.preventDefault()
+        await fetch('/post-transaction', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -50,18 +50,27 @@ document.addEventListener("DOMContentLoaded", (e) => {
 		});
     });
 
-    filterForm?.addEventListener("submit", async () => {
+    filterForm?.addEventListener("submit", async (e) => {
 
         console.log("Filter request sending...");
         let from_date = filterForm.elements.from_date.value;
         let to_date = filterForm.elements.to_date.value;
 
-        fetch(`/?from_date=${from_date}&to_date=${to_date}`, {
+        const transactions = await fetch(`/?from_date=${from_date}&to_date=${to_date}`, {
 			method: 'GET'
-		})
+		}).then((res) => {
+
+            return res.json()
+
+        }).then((data) => {
+            // Data has been received by the client, now display it
+            transactionArray = data.transactions.transactionArray
+
+        })
 		.catch(error => {
 			console.error(error);
 		});
+        
     });
 
     //Cancel Button in Data Entry Form event
