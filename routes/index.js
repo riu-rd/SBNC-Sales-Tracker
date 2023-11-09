@@ -61,7 +61,7 @@ router.get('/', checkAuthenticated, async (req, res) => {
      }
 });
 
-router.delete('/delete-transaction', async (req, res) => {
+router.delete('/delete-transaction', checkAuthenticated, async (req, res) => {
     const { date, branch } = req.body;
 
     console.log(`Received delete request for date: ${date} and branch: ${branch}`);
@@ -85,11 +85,7 @@ router.delete('/delete-transaction', async (req, res) => {
     }
 })
 
-router.post('/', async (req,res) => {
-     
-})
-
-router.delete('/logout', async (req,res)=> {
+router.delete('/logout',  async (req,res)=> {
      req.logout(function(err) {
        if (err) { 
          return next(err)
@@ -99,6 +95,9 @@ router.delete('/logout', async (req,res)=> {
    })
 
 
+router.post("/post-transaction", checkAuthenticated, transactionsController.postTransaction);
+router.get("/download-transactions", checkAuthenticated, transactionsController.downloadTransactions);
+
 function checkAuthenticated(req, res, next){
      if (req.isAuthenticated()) {
           return next()
@@ -106,8 +105,6 @@ function checkAuthenticated(req, res, next){
      res.redirect('/login')
 }
 
-router.post("/post-transaction", transactionsController.postTransaction);
-router.get("/download-transactions", transactionsController.downloadTransactions);
-router.get("/filter", transactionsController.filterTransaction);
+
 
 module.exports = router

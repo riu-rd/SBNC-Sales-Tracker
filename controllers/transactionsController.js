@@ -112,63 +112,6 @@ const transactionsController = {
         }).catch(err => {
             res.status(500).send({success: false});
         });
-    },
-
-    filterTransaction: async (req, res) => {
-        console.log("Filtering...");
-        console.log(req.session.passport.user);
-        try {
-            let user = await User.findById(req.session.passport.user);
-            let fromDate = req.query.from_date; 
-            let toDate = req.query.to_date; 
-
-            // Find transactions within the date range
-            let transactions = await Transaction.find({
-                date: {
-                    $gte: fromDate, // Filter transactions with dates greater than or equal to fromDate
-                    $lte: toDate  // Filter transactions with dates less than or equal to toDate
-                }
-            });
-
-            let transactionArray = transactions.map(transaction => {
-                return {
-                    date: transaction.date,
-                    branch: transaction.branch,
-                    name: transaction.name,
-                    series: transaction.series,
-                    os: transaction.os,
-                    invoice: transaction.invoice,
-                    seller: transaction.seller,
-                    assembler: transaction.assembler,
-                    total: transaction.total,
-                    vatsale: transaction.vatsale,
-                    vatamount: transaction.vatamount 
-                };
-            });
-
-            transactionArray.sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                return dateB - dateA;
-            });
-
-            if (transactionArray.length <= 0) {
-                transactionArray = 
-                    [{ date: "no data", branch: "no data", name: "no data", series: 0, os: 0, 
-                    invoice: 0, seller: "no data", assembler: "no data", total: 0, vatsale: 0, vatamount: 0 }];
-            }
-
-            console.log(transactionArray);
-
-            res.render('home', {
-                title: "Dashboard",
-                name: user.name,
-                transactions: transactionArray,
-                layout: "dashboard"
-            });
-        } catch (err) {
-            console.log(err);
-        }
     }
 }
 

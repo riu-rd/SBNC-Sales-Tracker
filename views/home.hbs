@@ -5,15 +5,17 @@
 
 <!-- Displaying the data -->
 <div id ='display'>
-  <form id="filterForm">
-    <input type="search" id="searchBar" placeholder="Search"/>
-    <label for="from_date">From:  </label>
-    <input type="date" name="from_date" id="from_date"/>
-    <label for="from_date">To:  </label>
-    <input type='date' name="to_date" id="to_date"/>
-    <button type="submit" id="filterBtn">Apply Filter</button>
-  </form>
   <button id='addBtn'>Add Transaction</button>
+  <div id="displayHeader">
+    <form id="filterForm">
+      <input type="search" id="searchBar" placeholder="Search"/>
+      <label for="from_date">From:  </label>
+      <input type="date" name="from_date" id="from_date"/>
+      <label for="from_date">To:  </label>
+      <input type='date' name="to_date" id="to_date"/>
+      <button type="submit" id="filterBtn">Apply Filter</button>
+    </form>
+  </div>
   <table id='tTable'>
         <tr id='tHeader'>
             <th>Date</th>
@@ -43,7 +45,7 @@
             <td>{{total}}</td>
             <td>{{vatsale}}</td>
             <td>{{vatamount}}</td> 
-            <td class="removeButtonCell"><button class="removeRowBtn" style="display: inline-block">X</button></td>
+            <td class="removeButtonCell"><button class="removeRowBtn">X</button></td>
         </tr>
         {{/each}}
   </table>
@@ -81,11 +83,11 @@
     </fieldset>
     <fieldset>
       <label for='addTotal'>Total: </label>
-      <input type='number' id="addTotal" name='addTotal' required/>
+      <input type='number' id="addTotal" name='addTotal' step="0.01" required/>
       <label for='addVatsale'>VAT Sale: </label>
-      <input type='number' id="addVatsale" name='addVatsale' required/>
+      <input type='number' id="addVatsale" name='addVatsale' step="0.01" required/>
       <label for='addVatamount'>VAT Amount: </label>
-      <input type='number' id="addVatamount" name='addVatamount' required/>
+      <input type='number' id="addVatamount" name='addVatamount' step="0.01" required/>
     </fieldset>
     <button type='submit' id='submitBtn' value='submit'>Submit</button>
     <button type='reset' id='cancelBtn' value='reset'>Cancel</button>

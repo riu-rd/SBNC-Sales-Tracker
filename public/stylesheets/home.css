@@ -16,35 +16,54 @@ body {
 /* For the Table */
 #addBtn, #downloadBtn {
   background-color: var(--maincolor);
-    color: white;
-    float: right;
-    margin: 5px 0;
-    padding: 2px;
+  color: white;
+  float: left;
+  margin-right: 5%;
 }
+
+td.removeButtonCell {
+  border: 1px solid white;
+  width: 40px; /* Adjust the width to match the button width */
+  text-align: center; /* Center the button within the cell */
+}
+
+th:last-child {
+  background-color:white;
+  border: 1px solid white;
+}
+
 .removeRowBtn {
-  display: inline-block;
-  width: 40px; /* Adjust the width to your desired size */
-  height: 20px; /* Adjust the height to your desired size */
+  display: none;
+  width: 30px; /* Adjust the width to your desired size */
+  height: 30px; /* Adjust the height to your desired size */
   padding: 5px 8px; /* Adjust the padding as needed for spacing */
   background-color: #ff0000;
   color: #ffffff;
   border: none;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 #display {
   display: block;
   position: relative;
-  margin: 0 auto;
-  width: 95%;
+  margin: auto;
+  width: 90%;
   align-items: center;
   justify-content: center;
   clear: right;
+  align-self: center;
 }
 
-#searchBar, #to_date, #from_date, label[for='from_date'], label[for='to_date'], #filterBtn {
+#displayHeader {
+  position:relative;
+  width: 50%;
   float: left;
   margin: 0 5px;
+}
+
+#searchBar {
+  margin-right: 5%;
 }
 
 tr:hover {
@@ -56,11 +75,13 @@ tr:hover {
   border-collapse: collapse;
   text-align: center;
   padding: 5px 30px;
+  align-self: center;
+  clear: right;
 }
 
-td.removeButtonCell {
-  width: 40px; /* Adjust the width to match the button width */
-  text-align: center; /* Center the button within the cell */
+#tTable {
+  height: 2px; /* Set a fixed height */
+  overflow-y: auto;
 }
 
 #tHeader {
