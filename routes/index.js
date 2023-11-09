@@ -8,7 +8,22 @@ router.get('/', checkAuthenticated, async (req, res) => {
      console.log(req.session.passport.user)
      try {
           let user = await User.findById(req.session.passport.user);
-          let transactions = await Transaction.find({});
+          let fromDate = req.query.from_date; 
+          let toDate = req.query.to_date; 
+          let transactions;
+
+          if (fromDate && toDate) {
+               // Find transactions within the date range
+               transactions = await Transaction.find({
+                    date: {
+                         $gte: fromDate, // Filter transactions with dates greater than or equal to fromDate
+                         $lte: toDate  // Filter transactions with dates less than or equal to toDate
+                    }
+               });
+          }
+          else {
+               transactions = await Transaction.find({});
+          }
 
           let transactionArray = transactions.map(transaction => {
                return {

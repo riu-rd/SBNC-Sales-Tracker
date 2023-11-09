@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         let from_date = filterForm.elements.from_date.value;
         let to_date = filterForm.elements.to_date.value;
 
-        fetch(`/filter?from_date=${from_date}&to_date=${to_date}`, {
+        fetch(`/?from_date=${from_date}&to_date=${to_date}`, {
 			method: 'GET'
 		})
 		.catch(error => {
