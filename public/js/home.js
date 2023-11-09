@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const overlay = document.getElementById("overlay");
     const downloadBtn = document.getElementById("downloadBtn");
     const rows = document.querySelectorAll(".rowData");
-    
+   
+
     //Add Button Event
     addBtn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -95,13 +96,44 @@ document.addEventListener("DOMContentLoaded", (e) => {
         });
     });
 
-    //Clickable table rows
-    rows.forEach(row => {
-        row.addEventListener('click', function() {
-            const cells = this.cells;
-            const rowData = Array.from(cells).map(cell => cell.textContent);
-            console.log(rowData);
-            alert(rowData);
+    rows.forEach((row) => {
+        row.addEventListener('click', function () {
+            const removeButton = row.querySelector('.removeRowBtn');
+            removeButton.style.display = (removeButton.style.display === 'none') ? 'inline-block' : 'none';
         });
-    })
+    });
+
+    // Remove button click event (handles all remove buttons)
+    document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("removeRowBtn")) {
+        const removeButton = e.target;
+        const row = removeButton.parentElement.parentElement; // Get the row
+        const transactionData = row.querySelectorAll("td");
+        const date = transactionData[0].textContent;
+        const branch = transactionData[1].textContent;
+
+        // Send a request to the server to delete the transaction
+        fetch('/delete-transaction', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ date, branch }),
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Error! Transaction deletion failed');
+            }
+            return res.json();
+        })
+        .then((data) => {
+            // Remove the row from the table on the client-side
+            row.remove();
+            console.log('Transaction deleted successfully');
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
+});
 });

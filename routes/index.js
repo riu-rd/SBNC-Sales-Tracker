@@ -47,6 +47,30 @@ router.get('/', checkAuthenticated, async (req, res) => {
      }
 });
 
+router.delete('/delete-transaction', async (req, res) => {
+    const { date, branch } = req.body;
+
+    console.log(`Received delete request for date: ${date} and branch: ${branch}`);
+
+    try {
+        // Find and remove the transaction based on date and branch
+        const result = await Transaction.findOneAndRemove({ date, branch });
+
+        if (result) {
+            // Transaction was found and deleted
+            console.log('Transaction removed successfully');
+            res.status(200).json({ message: 'Transaction removed successfully' });
+        } else {
+            // Transaction was not found
+            console.log('Transaction not found');
+            res.status(404).json({ message: 'Transaction not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting transaction:', error);
+        res.status(500).json({ message: 'Transaction removal failed' });
+    }
+})
+
 router.post('/', async (req,res) => {
      
 })

@@ -63,8 +63,37 @@ const transactionsController = {
                 workbook.xlsx.write(res);
             } 
             else {
-                res.send("No transactions data found");
-                res.sendStatus(404);
+                let workbook = new excel.Workbook();
+                const sheet = workbook.addWorksheet("transactions");
+                sheet.columns = [
+                    {header: "DATE", key: "date", width: 30},
+                    {header: "BRANCH", key: "branch", width: 30},
+                    {header: "NAME OF CUSTOMER", key: "name", width: 30},
+                    {header: "C-SERIES", key: "series", width: 30},
+                    {header: "OS", key: "os", width: 30},
+                    {header: "C-INVOICE", key: "invoice", width: 30},
+                    {header: "SELLER", key: "seller", width: 30},
+                    {header: "ASSEMBLER", key: "assembler", width: 30},
+                    {header: "TOTAL", key: "total", width: 30},
+                    {header: "VAT SALE", key: "vatsale", width: 30},
+                    {header: "VAT AMOUNT", key: "vatamount", width: 30},
+                ];
+
+                sheet.getRow(1).eachCell((cell) => {
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'ff0c2075' },
+                    };
+                    cell.font = {
+                        bold: true,
+                        color: { argb: 'ffffffff' },
+                    };
+                });
+
+                res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                res.setHeader("Content-Disposition", "attachment;filename=" + "transactions.xlsx");
+                workbook.xlsx.write(res);
             }
         }).catch(err => {
             console.error(err);

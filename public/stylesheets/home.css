@@ -21,6 +21,16 @@ body {
     margin: 5px 0;
     padding: 2px;
 }
+.removeRowBtn {
+  display: inline-block;
+  width: 40px; /* Adjust the width to your desired size */
+  height: 20px; /* Adjust the height to your desired size */
+  padding: 5px 8px; /* Adjust the padding as needed for spacing */
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
 
 #display {
   display: block;
@@ -46,6 +56,11 @@ tr:hover {
   border-collapse: collapse;
   text-align: center;
   padding: 5px 30px;
+}
+
+td.removeButtonCell {
+  width: 40px; /* Adjust the width to match the button width */
+  text-align: center; /* Center the button within the cell */
 }
 
 #tHeader {
