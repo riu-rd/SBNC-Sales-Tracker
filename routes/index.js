@@ -47,8 +47,7 @@ router.get('/', checkAuthenticated, async (req, res) => {
           });
 
           if(transactionArray.length <= 0) {
-               transactionArray = [{date: "no data", branch: "no data", name: "no data", series: 0, os: 0, invoice: 0,
-                                   seller: "no data", assembler: "no data", total: 0, vatsale: 0, vatamount: 0}];
+               transactionArray = [];
           }
 
           res.render('home', {
