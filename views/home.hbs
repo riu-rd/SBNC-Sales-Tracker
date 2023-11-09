@@ -2,4 +2,6 @@
 <form action="/logout?_method=DELETE" method="POST">
      <button type="submit">Log Out</button>
 </form>
-<a href="userlist">Userlist</a>
+{{#if accessUser}}
+     <a href="userlist">Userlist</a>
+{{/if}}
