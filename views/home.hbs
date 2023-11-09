@@ -26,8 +26,10 @@
             <th>Total</th>
             <th>VAT Sale</th>
             <th>VAT Amount</th> 
+            <th></th>
         </tr>
         {{#each transactions}}
+        <tr class="rowData" data-id="{{_id}}"></tr>
         <tr class="rowData">
             <td>{{date}}</td>
             <td>{{branch}}</td>
@@ -40,6 +42,7 @@
             <td>{{total}}</td>
             <td>{{vatsale}}</td>
             <td>{{vatamount}}</td> 
+            <td class="removeButtonCell"><button class="removeRowBtn" style="display: inline-block">X</button></td>
         </tr>
         {{/each}}
   </table>
@@ -76,7 +79,7 @@
       <input type='text' id="addAssembler" name='addAssembler' required/>
     </fieldset>
     <fieldset>
-       <label for='addTotal'>Total: </label>
+      <label for='addTotal'>Total: </label>
       <input type='number' id="addTotal" name='addTotal' required/>
       <label for='addVatsale'>VAT Sale: </label>
       <input type='number' id="addVatsale" name='addVatsale' required/>
