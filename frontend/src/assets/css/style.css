@@ -271,13 +271,17 @@ input[type="date" i] {
 }
 
 .transaction-table tr {
-    background-color: #f5f5f5; 
+    background-color: #f5f5f5;
+    transition: background-color 0.5s; 
 }
 
 .transaction-table td {
-    background-color: #f5f5f5; 
     text-align: center;
     vertical-align: middle;
+}
+
+.transaction-table tr:hover {
+    background-color: rgb(202, 202, 202); 
 }
 
 .profile{
@@ -316,10 +320,6 @@ input[type="date" i] {
     background-color: #112376;
     color: white;
     cursor: pointer;
-}
-
-tr:hover {
-    background-color: #ececec;
 }
 
 .operations {
