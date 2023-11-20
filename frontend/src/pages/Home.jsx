@@ -56,24 +56,28 @@ function Home() {
     // [Update] Call this function when updating a row
     const handleRowUpdate = (transactionID) => {
         console.log(`Row updated with ID: ${transactionID}`);
+        alert(`Update Button on Transaction ID:  [${transactionID}] clicked`);
     };
 
     // [DELETE] Call this function when deleting a row
     const handleRowDelete = (transactionID) => {
-        console.log(`Row deleted with ID: ${transactionID}`);
-        axios.delete(`http://localhost:8080/transactions/${transactionID}`, {withCredentials: true})
-        .then((res) => {
-                console.log("Transaction Deleted", res.data);
-                fetchAndUpdateTransactions();
-            }).catch((err) => {
-                console.error(err.message);
-            })
-
+        const userConfirmed = window.confirm('Are you sure you want to delete?');
+        if (userConfirmed) {  
+            axios.delete(`http://localhost:8080/transactions/${transactionID}`, {withCredentials: true})
+                .then((res) => {
+                    console.log("Transaction Deleted", res.data);
+                    fetchAndUpdateTransactions();
+                }).catch((err) => {
+                    console.error(err.message);
+                });
+                console.log(`Row deleted with ID: ${transactionID}`);
+        }       
     };
 
     // [DOWNLOAD] Function used for turning filteredTransactions into an Excel File
     const handleOnExport = async () => {
-        if (filteredTransactions && filteredTransactions.length > 0) {
+        if (filteredTransactions && filteredTransactions.length > 0 &&
+            window.confirm('Download Current Spreadsheet?')) {
             const wb = new ExcelJS.Workbook();
             const ws = wb.addWorksheet('Transactions');
 
