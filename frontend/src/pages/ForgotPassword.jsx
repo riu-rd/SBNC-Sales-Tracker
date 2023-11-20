@@ -29,7 +29,7 @@ function ForgotPassword() {
                         </div>
                     </div>
                     <div className="center">
-                        <Link to="/security-code" ><button>Send a code</button>
+                        <Link to="/security-code" ><button className='main-buttons'>Send a code</button>
                         </Link>
                     </div>
                 </div>

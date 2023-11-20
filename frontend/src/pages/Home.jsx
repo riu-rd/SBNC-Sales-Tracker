@@ -3,11 +3,14 @@ import '../assets/css/style.css';
 // import logoImage from './assets/logo2.png';
 // import { Link } from 'react-router-dom';
 import profileIcon from '../assets/images/account (1).png';
-import Spinner from '../components/Spinner';
-import DataEntryForm from '../components/DataEntryForm';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import ExcelJS from 'exceljs';
+
+import Spinner from '../components/Spinner';
+import DataEntryForm from '../components/DataEntryForm';
+import DeleteButton from '../components/DeleteButton';
+import UpdateButton from '../components/EditButton';
 
 function Home() {
     // Loading and Updating Transactions
@@ -20,18 +23,13 @@ function Home() {
     //Dropdowns and Popups
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isDataEntryOpen, setIsDataEntryOpen] = useState(false);
+    const [isRowClicked, setIsRowClicked] = useState([false, -1]);
 
-    // When Data Entry Cancel Button is clicked
-    const handleDataEntryCancel = () => {
-        setIsDataEntryOpen(false);
-    };
-
-    // When Data Entry Submit Button is Clicked
+    // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
         axios.post('http://localhost:8080/transactions', formData)
             .then((res) => {
                 console.log('Transaction Posted:', res.data);
-                // Fetch new Transactions list
                 fetchAndUpdateTransactions();
             })
             .catch((err) => {
@@ -40,7 +38,7 @@ function Home() {
         setIsDataEntryOpen(false);
     };
 
-    // Call this function when fetching Transactions from the server
+    // [READ] Call this function when fetching Transactions from the server
     const fetchAndUpdateTransactions = () => {
         axios.get('http://localhost:8080/transactions')
           .then((res) => {
@@ -53,19 +51,25 @@ function Home() {
           });
     };
 
-    // function used for Filtering
-    const filteredTransactions = transactions.filter((transaction) => {
-        const transactionValues = Object.values(transaction);
-        return (
-            transactionValues.some((value) =>
-                value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-            ) &&
-            (startDate === '' || transaction.date >= startDate) &&
-            (endDate === '' || transaction.date <= endDate)
-        );
-    }); 
+    // [Update] Call this function when updating a row
+    const handleRowUpdate = (transactionID) => {
+        console.log(`Row updated with ID: ${transactionID}`);
+    };
 
-    // Function used for turning filteredTransactions into an Excel File
+    // [DELETE] Call this function when deleting a row
+    const handleRowDelete = (transactionID) => {
+        console.log(`Row deleted with ID: ${transactionID}`);
+        axios.delete(`http://localhost:8080/transactions/${transactionID}`)
+            .then((res) => {
+                console.log("Transaction Deleted", res.data);
+                fetchAndUpdateTransactions();
+            }).catch((err) => {
+                console.error(err.message);
+            })
+
+    };
+
+    // [DOWNLOAD] Function used for turning filteredTransactions into an Excel File
     const handleOnExport = async () => {
         if (filteredTransactions && filteredTransactions.length > 0) {
             const wb = new ExcelJS.Workbook();
@@ -123,6 +127,23 @@ function Home() {
         }
     };
 
+    // When Data Entry Cancel Button is clicked
+    const handleDataEntryCancel = () => {
+        setIsDataEntryOpen(false);
+    };
+
+    // function used for Filtering
+    const filteredTransactions = transactions.filter((transaction) => {
+        const transactionValues = Object.values(transaction);
+        return (
+            transactionValues.some((value) =>
+                value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+            ) &&
+            (startDate === '' || transaction.date >= startDate) &&
+            (endDate === '' || transaction.date <= endDate)
+        );
+    }); 
+
     // Initialize the table
     useEffect(() => {
         setLoading(true);
@@ -174,11 +195,12 @@ function Home() {
                     </div>
 
                 </div>
-                <button className='transac-btn' onClick={() => setIsDataEntryOpen(!isDataEntryOpen)}>Add Transaction</button></div>
+                <button className='transac-btn main-buttons' onClick={() => setIsDataEntryOpen(!isDataEntryOpen)}>Add Transaction</button></div>
                 {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel}/>)}
             {loading ? (<Spinner />) : (<table className="transaction-table">
                 <thead>
                     <tr>
+                        <th className='operations'></th>
                         <th>Date</th>
                         <th>Branch</th>
                         <th>Name of Customer</th>
@@ -194,7 +216,12 @@ function Home() {
                 </thead>
                 <tbody>
                     {filteredTransactions.map((transaction, index) => (
-                        <tr key={transaction._id}>
+                        <tr key={transaction._id} onClick={()=> setIsRowClicked([!isRowClicked[0], index])}>
+                            {(isRowClicked[0] && isRowClicked[1] === index) ? 
+                            (<td className='operations'>
+                            <UpdateButton onEdit={() => handleRowUpdate(transaction._id)} />{"                "}
+                            <DeleteButton onDelete={() => handleRowDelete(transaction._id)}/></td>) : 
+                            (<td className='operations'></td>)}
                             <td>{transaction.date}</td>
                             <td>{transaction.branch}</td>
                             <td>{transaction.name}</td>
@@ -206,13 +233,12 @@ function Home() {
                             <td>{transaction.total}</td>
                             <td>{transaction.vatsale}</td>
                             <td>{transaction.vatamount}</td>
-                            {isDataEntryOpen && <td></td>}
                         </tr>
                     ))}
                 </tbody>
             </table>)}
 
-            <button className='spreadsheet-btn' onClick={handleOnExport}>Download Spreadsheet</button>
+            <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
 
         </div>
     );

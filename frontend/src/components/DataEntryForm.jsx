@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import '../assets/css/DataEntryForm.css';
+import '../assets/css/data-entry-form.css';
 
 const DataEntryForm = ({onSubmit, onCancel}) => {
     const [formData, setFormData] = useState({

@@ -27,7 +27,7 @@ function SecurityCode() {
             </div>
           </div>
           <div className="center">
-            <button>Continue</button>
+            <button className='main-buttons'>Continue</button>
           </div>
         </div>
       </div>

@@ -3,10 +3,11 @@
 * {
     font-family: 'MS Reference Sans Serif', sans-serif;
     margin: 0;
+    --bg: #d9d9d9;
 }
 
 body {
-    background-color: #d9d9d9;
+    background-color: var(--bg);
     /* Light Blue */
 }
 
@@ -18,7 +19,6 @@ body {
 }
 
 .login_form {
-
     border-radius: 30px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     background-color: #F4F4F4;
@@ -47,7 +47,6 @@ body {
 .inputCode,
 .inputName,
 .inputNumber,
-.inputUsername,
 .inputPass,
 .inputConfirmPass {
     display: flex;
@@ -62,7 +61,6 @@ body {
 .inputNumber input,
 .inputPass input,
 .inputName input,
-.inputUsername input,
 .inputConfirmPass input {
     width: 500px;
     border: none;
@@ -85,7 +83,6 @@ body {
 .inputNumber>label,
 .inputPass>label,
 .inputName>label,
-.inputUsername>label,
 .inputConfirmPass>label {
     font-size: 20px;
     color: #4B4545;
@@ -127,7 +124,7 @@ input[type="checkbox" i] {
 
 }
 
-button {
+button.main-buttons {
     background-color: #112376;
     border: none;
     color: white;
@@ -243,6 +240,7 @@ input[type="date" i] {
 }
 
 .transaction-table {
+    min-width: 95%;
     width: 95%;
     border-collapse: collapse;
     border: 2px solid rgb(147 147 147);
@@ -251,6 +249,8 @@ input[type="date" i] {
 }
 
 .transaction-table th, .transaction-table td {
+    min-width: 8%;
+    width: 8%;
     border: 1.5px solid #4d4d4d;
     padding: 8px; 
     text-align: center;
@@ -305,5 +305,15 @@ input[type="date" i] {
     background-color: #112376;
     color: white;
     cursor: pointer;
-  
+}
+
+tr:hover {
+    background-color: #ececec;
+}
+
+.operations {
+    background-color: var(--bg) !important;
+    border:  2px solid var(--bg) !important;
+    min-width: 8%;
+    width: 8%;;
 }

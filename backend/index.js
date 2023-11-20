@@ -4,13 +4,13 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import passport from 'passport';
-import { Strategy } from "passport-local";
 import cookieParser from 'cookie-parser';
-import bcrypt from "bcryptjs";
 import session from "express-session";
 import bodyParser from 'body-parser';
 
-import transactionsRoute from "./routes/transactionsRoute.js"
+import transactionsRoute from "./routes/transactionsRoute.js";
+import authRoute from "./routes/authRoute.js";
+import PassportConfig from './routes/passportConfig.js';
 
 // Setup .env
 dotenv.config();
@@ -22,53 +22,26 @@ const app = express();
 
 // Use Middleware
 app.use(express.json());
-app.use(cors());
-/* 
--- Custom origins for security using CORS policy --
 app.use(cors({
-    origin: 'some website',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Content-Type'],
+    credentials: true
 })); 
-*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: session_secret,
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cookieParser(session_secret));
-
-app.post("/login", async (req, res) => {
-    try {
-        
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send({message: err.message});
-    }
-});
-
-app.post("/register", async (req, res) => {
-    try {
-        
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send({message: err.message});
-    }
-});
-
-app.get("/user", async (req, res) => {
-    try {
-        
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send({message: err.message});
-    }
-});
-
+PassportConfig(passport);
 
 // Use Routers
+app.use("/", authRoute);
 app.use("/transactions", transactionsRoute);
 
 // Connect to MongoDB and listen to port

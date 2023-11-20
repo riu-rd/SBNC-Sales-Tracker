@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
             return res.status(400).json({message: "Send all required fields"});
         }
 
-        const newTransaction = {
+        const newTransaction = new Transaction({
             date: req.body.date, 
             name: req.body.name, 
             series: req.body.series, 
@@ -27,10 +27,10 @@ router.post("/", async (req, res) => {
             vatsale: req.body.vatsale, 
             vatamount: req.body.vatamount, 
             branch: req.body.branch, 
-        };
+        });
 
-        const transaction = await Transaction.create(newTransaction);
-        return res.status(201).json(transaction);
+        await newTransaction.save();
+        return res.status(201).json({message: "Transaction created successfully"});
     } catch (err) {
         console.error(err.message);
         res.status(500).send({message: err.message});
@@ -41,6 +41,11 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const transactions = await Transaction.find({});
+        transactions.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateB.getDate() - dateA.getDate();
+        });
         return res.status(200).json(transactions);
     } catch (err) {
         console.error(err.message);
