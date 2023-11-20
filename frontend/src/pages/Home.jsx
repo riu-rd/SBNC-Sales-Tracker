@@ -224,47 +224,46 @@ function Home() {
                 </div>
                 <button className='transac-btn main-buttons' onClick={() => setIsDataEntryOpen(!isDataEntryOpen)}>Add Transaction</button></div>
                 {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel}/>)}
-            {loading ? (<Spinner />) : (<table className="transaction-table">
-                <thead>
-                    <tr>
-                        <th className='operations'></th>
-                        <th>Date</th>
-                        <th>Branch</th>
-                        <th>Name of Customer</th>
-                        <th>C-Series</th>
-                        <th>OS</th>
-                        <th>C-Invoice</th>
-                        <th>Seller</th>
-                        <th>Assembler</th>
-                        <th>Total</th>
-                        <th>VAT Sale</th>
-                        <th>VAT Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredTransactions.map((transaction, index) => (
-                        <tr key={transaction._id} onClick={()=> setIsRowClicked([!isRowClicked[0], index])}>
-                            {(isRowClicked[0] && isRowClicked[1] === index) ? 
-                            (<td className='operations'>
-                            <UpdateButton onEdit={() => handleRowUpdate(transaction._id)} />{"                "}
-                            <DeleteButton onDelete={() => handleRowDelete(transaction._id)}/></td>) : 
-                            (<td className='operations'></td>)}
-                            <td>{transaction.date}</td>
-                            <td>{transaction.branch}</td>
-                            <td>{transaction.name}</td>
-                            <td>{transaction.series}</td>
-                            <td>{transaction.os}</td>
-                            <td>{transaction.invoice}</td>
-                            <td>{transaction.seller}</td>
-                            <td>{transaction.assembler}</td>
-                            <td>{transaction.total}</td>
-                            <td>{transaction.vatsale}</td>
-                            <td>{transaction.vatamount}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>)}
-
+                    {loading ? (<Spinner />) : (<table className="transaction-table">
+                        <thead>
+                            <tr>
+                                <th className='operations'></th>
+                                <th>Date</th>
+                                <th>Branch</th>
+                                <th>Name of Customer</th>
+                                <th>C-Series</th>
+                                <th>OS</th>
+                                <th>C-Invoice</th>
+                                <th>Seller</th>
+                                <th>Assembler</th>
+                                <th>Total</th>
+                                <th>VAT Sale</th>
+                                <th>VAT Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredTransactions.map((transaction, index) => (
+                                <tr key={transaction._id} onClick={()=> setIsRowClicked([!isRowClicked[0], index])}>
+                                    {(isRowClicked[0] && isRowClicked[1] === index) ? 
+                                    (<td className='operations'>
+                                    <UpdateButton onEdit={() => handleRowUpdate(transaction._id)} />{"                "}
+                                    <DeleteButton onDelete={() => handleRowDelete(transaction._id)}/></td>) : 
+                                    (<td className='operations'></td>)}
+                                    <td>{transaction.date}</td>
+                                    <td>{transaction.branch}</td>
+                                    <td>{transaction.name}</td>
+                                    <td>{transaction.series}</td>
+                                    <td>{transaction.os}</td>
+                                    <td>{transaction.invoice}</td>
+                                    <td>{transaction.seller}</td>
+                                    <td>{transaction.assembler}</td>
+                                    <td>{transaction.total}</td>
+                                    <td>{transaction.vatsale}</td>
+                                    <td>{transaction.vatamount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>)}
             <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
 
         </div>
