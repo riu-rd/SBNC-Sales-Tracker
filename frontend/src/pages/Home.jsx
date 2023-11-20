@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../assets/css/style.css';
 // import logoImage from './assets/logo2.png';
 // import { Link } from 'react-router-dom';
@@ -13,6 +14,7 @@ import DeleteButton from '../components/DeleteButton';
 import UpdateButton from '../components/EditButton';
 
 function Home() {
+    const navigate = useNavigate();
     // Loading and Updating Transactions
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState([]);
@@ -27,8 +29,8 @@ function Home() {
 
     // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
-        axios.post('http://localhost:8080/transactions', formData)
-            .then((res) => {
+        axios.post('http://localhost:8080/transactions', formData, {withCredentials: true})
+        .then((res) => {
                 console.log('Transaction Posted:', res.data);
                 fetchAndUpdateTransactions();
             })
@@ -40,8 +42,8 @@ function Home() {
 
     // [READ] Call this function when fetching Transactions from the server
     const fetchAndUpdateTransactions = () => {
-        axios.get('http://localhost:8080/transactions')
-          .then((res) => {
+        axios.get('http://localhost:8080/transactions', { withCredentials: true})
+        .then((res) => {
             setTransactions(res.data);
             setLoading(false);
           })
@@ -59,8 +61,8 @@ function Home() {
     // [DELETE] Call this function when deleting a row
     const handleRowDelete = (transactionID) => {
         console.log(`Row deleted with ID: ${transactionID}`);
-        axios.delete(`http://localhost:8080/transactions/${transactionID}`)
-            .then((res) => {
+        axios.delete(`http://localhost:8080/transactions/${transactionID}`, {withCredentials: true})
+        .then((res) => {
                 console.log("Transaction Deleted", res.data);
                 fetchAndUpdateTransactions();
             }).catch((err) => {
@@ -127,6 +129,18 @@ function Home() {
         }
     };
 
+    // [LOGOUT] Logs out the user
+    const handleLogout = () => {
+        axios.delete('http://localhost:8080/logout', { withCredentials: true })
+            .then((res) => {
+                console.log('Logout successful:', res.data);
+                navigate('/');
+            })
+            .catch((err) => {
+                console.error('Error during logout:', err.message);
+            });
+    };
+
     // When Data Entry Cancel Button is clicked
     const handleDataEntryCancel = () => {
         setIsDataEntryOpen(false);
@@ -150,6 +164,19 @@ function Home() {
         fetchAndUpdateTransactions();
     }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:8080/user', { withCredentials: true })
+            .then((res) => {
+                if (res.data) {
+                    console.log("Currently Logged In");
+                }     
+            })
+            .catch((err) => {
+                navigate("/");
+                console.error(err.message);
+            });
+    }, [navigate]);
+
     return (
         <div>
             <div className="nav">
@@ -160,7 +187,7 @@ function Home() {
                     <div className="profile-dropdown">
                         <ul>
                             <li>Profile</li>
-                            <li>Logout</li>
+                            <li onClick={handleLogout}>Logout</li>
                         </ul>
                     </div>
                 )}

@@ -1,7 +1,9 @@
 import express from "express";
 import { Transaction } from '../models/transaction.js';
+import { checkAuthenticated } from "./auth.js";
 
 const router = express.Router();
+router.use(checkAuthenticated);
 
 // Create
 router.post("/", async (req, res) => {

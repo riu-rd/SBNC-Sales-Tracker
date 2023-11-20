@@ -2,6 +2,7 @@ import express from "express";
 import { User } from '../models/user.js';
 import bcrypt from "bcryptjs";
 import passport from "passport";
+import { checkAuthenticated, checkNotAuthenticated } from "./auth.js";
 
 const router = express.Router();
 
@@ -34,15 +35,15 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.post("/login", (req, res, next) => {
-    passport.authenticate("local", async (err, user, info) => {
+router.post("/login", checkNotAuthenticated, (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
         try {
             if (err) {
                 console.error(err.message);
                 return res.status(500).send({ message: err.message });
             }
             if (!user) {
-                return res.status(404).json({ message: "User does not exist"});
+                return res.status(404).json({ message: "Invalid User"});
             }
             req.logIn(user, (err) => {
                 if (err) {
@@ -58,13 +59,29 @@ router.post("/login", (req, res, next) => {
     })(req, res, next);
 });
 
-router.get("/user", async (req, res) => {
+router.get("/user", checkAuthenticated, async (req, res) => {
     try {
-        console.log(req.body);
+        res.status(200).json({ user: req.user });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send({message: err.message});
+        res.status(500).send({ message: err.message });
     }
+});
+
+router.delete('/logout', checkAuthenticated, (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error(err.message);
+            return res.status(500).json({ message: "Error during logout" });
+        }
+        req.session.destroy((err) => {
+            if (err) {
+                console.error(err.message);
+                return res.status(500).json({ message: "Error destroying session" });
+            }
+            res.status(200).json({ message: "Logout successful" });
+        });
+    });
 });
 
 export default router;

@@ -10,7 +10,7 @@ import bodyParser from 'body-parser';
 
 import transactionsRoute from "./routes/transactionsRoute.js";
 import authRoute from "./routes/authRoute.js";
-import PassportConfig from './routes/passportConfig.js';
+import PassportConfig from './passport-config.js';
 
 // Setup .env
 dotenv.config();
@@ -23,7 +23,7 @@ const app = express();
 // Use Middleware
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
     credentials: true

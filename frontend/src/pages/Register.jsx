@@ -1,7 +1,7 @@
 import React from 'react';
 import '../assets/css/style.css';
 import logoImage from '../assets/images/logo2.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -11,6 +11,8 @@ function Register() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [confpass, setConfPass] = useState('');
+
+    const navigate = useNavigate();
 
     const registerUser = () => {
         if (pass === confpass) {
@@ -23,10 +25,17 @@ function Register() {
                 withCredentials: true
             }).then((res) => {
                 console.log("User Registered Successfully: ", res.data);
+                navigate('/');
             }).catch((err) => {
                 console.error(err.message);
             });
         };
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            registerUser();
+        }
     };
 
     return (
@@ -47,11 +56,11 @@ function Register() {
                     <div className="input">
                         <div className="inputName">
                             <label htmlFor="name" className="center">Name</label>
-                            <input type="text" name="name" placeholder="Juan Dela Cruz" onChange={(e)=> setName(e.target.value)} required/>
+                            <input type="text" name="name" placeholder="Juan Dela Cruz" onChange={(e)=> setName(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>
                         <div className="inputEmail">
                             <label htmlFor="email" className="center">Email</label>
-                            <input type="email" name="email"  placeholder="juan@gmail.com" onChange={(e)=> setEmail(e.target.value)}  required/>
+                            <input type="email" name="email"  placeholder="juan@gmail.com" onChange={(e)=> setEmail(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>
                         {/*<div className="inputNumber">
                             <label htmlFor="number" className="center">Mobile Number</label>
@@ -59,11 +68,11 @@ function Register() {
                         </div>*/}
                         <div className="inputPass">
                             <label htmlFor="password" className="center">Password</label>
-                            <input type="password" name="password"  placeholder="password"  onChange={(e)=> setPass(e.target.value)} required/>
+                            <input type="password" name="password"  placeholder="password"  onChange={(e)=> setPass(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>
                         <div className="inputConfirmPass">
                             <label htmlFor="confirmPassword" className="center">Confirm Password</label>
-                            <input type="password" name="confirmPassword"  placeholder="confirm password" onChange={(e)=> setConfPass(e.target.value)} required/>
+                            <input type="password" name="confirmPassword"  placeholder="confirm password" onChange={(e)=> setConfPass(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>
                     </div>
                     <div className="center">
