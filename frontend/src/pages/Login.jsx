@@ -23,6 +23,7 @@ function Login() {
                     navigate("/home");
                 }
             }).catch((err) => {
+                alert("Invalid Username or Password");
                 console.error(err.message);
             });
     };

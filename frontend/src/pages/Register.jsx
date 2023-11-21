@@ -27,9 +27,12 @@ function Register() {
                 console.log("User Registered Successfully: ", res.data);
                 navigate('/');
             }).catch((err) => {
+                alert("Email already exists");
                 console.error(err.message);
             });
-        };
+        } else {
+            alert("Password and Confirm Password do not match");
+        }
     };
 
     const handleKeyPress = (e) => {
