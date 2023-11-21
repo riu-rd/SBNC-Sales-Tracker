@@ -7,6 +7,7 @@
 - do <strong>npm install</strong> to initialize node_modules
 - check if the .env file is initialized.
 - Use .env.example as template to setup .env (.env.example to .env)
+- Create a .env file or convert .env.example to .env
 - Type <strong>npm run dev</strong> to run backend.
 - Wait for the backend to connect to the cloud MongoDB database and listen on port <the port you specified in .env> (See console)
 - Keep the backend server online so frontend can connect. Open a new terminal window for frontend.
