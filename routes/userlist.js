@@ -5,7 +5,8 @@ const User = require('../modal/user')
 const authenticateController = require('../controllers/checkAuthetication')
 const userController = require('../controllers/userListController')
 
-router.get('/', authenticateController.checkAuthenticated,authenticateController.checkLevel, userController.getUsers)
+router.get('/', authenticateController.checkAuthenticated, authenticateController.checkLevel
+          , userController.getUsers)
 
 router.post('/', async (req,res) => {
      

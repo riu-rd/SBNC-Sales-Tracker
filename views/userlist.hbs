@@ -1,5 +1,14 @@
 <div>
-     {{#each users}}
-          <p>{{this.name}}, {{this.email}}</p>
-     {{/each}}
+     <table>
+          <thead>
+               <th>Name</th>
+               <th>Email</th>
+          </thead>
+          {{#each users}}
+               <tr>
+                    <td>{{this.name}} </td>
+                    <td>{{this.email}} </td>
+               </tr>
+          {{/each}}
+     </table>
 </div>
