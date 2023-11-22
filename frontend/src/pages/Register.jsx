@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/css/style.css';
-import logoImage from '../assets/images/logo2.png';
+// @ts-ignore
+import logoImage from '../assets/images/sbnc_logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
@@ -11,27 +12,32 @@ function Register() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [confpass, setConfPass] = useState('');
+    const [isError, setIsError] = useState([false, ""]);
 
     const navigate = useNavigate();
 
     const registerUser = () => {
-        if (pass === confpass) {
-            axios.post("http://localhost:8080/register", {
-                name: name,
-                email: email,
-                password: pass,
-                access: 1
-            }, {
-                withCredentials: true
-            }).then((res) => {
-                console.log("User Registered Successfully: ", res.data);
-                navigate('/');
-            }).catch((err) => {
-                alert("Email already exists");
-                console.error(err.message);
-            });
+        if (!name || !email || !pass || !confpass) {
+            setIsError([true, "Error: Fill up all fields"]);
         } else {
-            alert("Password and Confirm Password do not match");
+            if (pass === confpass) {
+                axios.post("http://localhost:8080/register", {
+                    name: name,
+                    email: email,
+                    password: pass
+                }, {
+                    withCredentials: true
+                }).then((res) => {
+                    console.log("User Registered Successfully: ", res.data);
+                    setIsError([false, ""]);
+                    navigate('/email-verification');
+                }).catch((err) => {
+                    setIsError([true, "Error: Email already exists"]);
+                    console.error(err.message);
+                });
+            } else {
+                setIsError([true, "Error: Password and Confirm Password do not match"]);
+            }
         }
     };
 
@@ -56,6 +62,7 @@ function Register() {
                     <div className="logo">
                         <img src={logoImage} alt="" /> {/* Use the imported image */}
                     </div>
+                    {isError[0] && <p className='error-message'>{isError[1]}</p>}
                     <div className="input">
                         <div className="inputName">
                             <label htmlFor="name" className="center">Name</label>

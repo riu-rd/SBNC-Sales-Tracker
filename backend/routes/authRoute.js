@@ -1,16 +1,19 @@
 import express from "express";
-import { User } from '../models/user.js';
 import bcrypt from "bcryptjs";
 import passport from "passport";
-import { checkAuthenticated, checkNotAuthenticated } from "./auth.js";
+import { checkAuthenticated, checkNotAuthenticated, verifyEmail } from "./auth.js";
+
+import { User } from '../models/user.js';
+import { Token } from "../models/token.js";
 
 const router = express.Router();
 
+// Register a User
 router.post("/register", async (req, res) => {
     try {
         if (
             !req.body.name || !req.body.email ||
-            !req.body.password || !req.body.access
+            !req.body.password
         ) {
             return res.status(400).json({message: "Send all required fields"});
         } else {
@@ -26,7 +29,18 @@ router.post("/register", async (req, res) => {
                     access: req.body.access
                 });
                 await newUser.save();
-                return res.status(201).json({message: "User created successfully"});
+                res.status(200).json({message: "User created: Confirmation email sent"});
+
+                // Generate Verification Token
+                const newToken = new Token ({
+                    userId: newUser._id, 
+                    token: crypto.randomUUID()
+                });
+                await newToken.save();
+
+                // Send Verification Email
+                const link = `http://localhost:8080/confirm/${newToken.token}`;
+                await verifyEmail(req.body.email, link);
             }
         }
     } catch (err) {
@@ -35,6 +49,21 @@ router.post("/register", async (req, res) => {
     }
 });
 
+// Confirm Verification Email
+router.get("/confirm/:token", async (req, res) => {
+    try {
+        const token = await Token.findOne({token: req.params.token});
+        console.log("Verifying Email with Token: ",token);
+        await User.updateOne({_id:token?.userId},{$set:{verified: true}});
+        await Token.findByIdAndDelete(token?._id);
+        return res.status(201).redirect(`http://localhost:5173`);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({message: err.message});
+    }
+});
+
+//Login a User
 router.post("/login", checkNotAuthenticated, (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
         try {
@@ -59,6 +88,7 @@ router.post("/login", checkNotAuthenticated, (req, res, next) => {
     })(req, res, next);
 });
 
+// Get the current logged in user
 router.get("/user", checkAuthenticated, async (req, res) => {
     try {
         res.status(200).json({ user: req.user });
@@ -68,12 +98,14 @@ router.get("/user", checkAuthenticated, async (req, res) => {
     }
 });
 
+// Logout current user
 router.delete('/logout', checkAuthenticated, (req, res) => {
     req.logout((err) => {
         if (err) {
             console.error(err.message);
             return res.status(500).json({ message: "Error during logout" });
         }
+        // @ts-ignore
         req.session.destroy((err) => {
             if (err) {
                 console.error(err.message);

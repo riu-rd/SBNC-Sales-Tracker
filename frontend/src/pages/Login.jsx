@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/css/style.css';
-import logoImage from '../assets/images/logo2.png';
+// @ts-ignore
+import logoImage from '../assets/images/sbnc_logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -8,6 +9,7 @@ import axios from 'axios';
 function Login() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [isError, setIsError] = useState(false);
 
     const navigate = useNavigate();
 
@@ -19,11 +21,12 @@ function Login() {
                 withCredentials: true
             }).then((res) => {
                 console.log("User Authenticated Successfully: ", res.data);
+                setIsError(false);
                 if (res.data) {
                     navigate("/home");
                 }
             }).catch((err) => {
-                alert("Invalid Username or Password");
+                setIsError(true);
                 console.error(err.message);
             });
     };
@@ -61,6 +64,7 @@ function Login() {
                     <div className="logo">
                         <img src={logoImage} alt="" />
                     </div>
+                    {isError && <p className='error-message'>Error: Invalid username or password.</p>}
                     <div className="input">
                         <div className="inputEmail">
                             <label htmlFor="email" className="center">Email</label>
