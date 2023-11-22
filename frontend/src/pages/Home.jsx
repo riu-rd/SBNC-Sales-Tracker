@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/style.css';
-// import logoImage from './assets/logo2.png';
+// import logoImage from './assets/sbnc_logo.png';
 // import { Link } from 'react-router-dom';
+// @ts-ignore
 import profileIcon from '../assets/images/account (1).png';
+// @ts-ignore
+import banner from '../assets/images/sbnc_banner.png';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import ExcelJS from 'exceljs';
@@ -26,6 +29,9 @@ function Home() {
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isDataEntryOpen, setIsDataEntryOpen] = useState(false);
     const [isRowClicked, setIsRowClicked] = useState([false, -1]);
+    //User Variables
+    const[username, setUsername] = useState("");
+    const[transactionCount, setTransactionCount] = useState(0);
 
     // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
@@ -46,6 +52,7 @@ function Home() {
         .then((res) => {
             setTransactions(res.data);
             setLoading(false);
+            setTransactionCount(res.data.length);
           })
           .catch((err) => {
             console.error(err.message);
@@ -153,13 +160,16 @@ function Home() {
     // function used for Filtering
     const filteredTransactions = transactions.filter((transaction) => {
         const transactionValues = Object.values(transaction);
+        
         return (
             transactionValues.some((value) =>
                 value.toString().toLowerCase().includes(searchTerm.toLowerCase())
             ) &&
+            // @ts-ignore
             (startDate === '' || transaction.date >= startDate) &&
+            // @ts-ignore
             (endDate === '' || transaction.date <= endDate)
-        );
+        )
     }); 
 
     // Initialize the table
@@ -172,7 +182,8 @@ function Home() {
         axios.get('http://localhost:8080/user', { withCredentials: true })
             .then((res) => {
                 if (res.data) {
-                    console.log("Currently Logged In");
+                    console.log("Currently Logged In: ", res.data.user.name);
+                    setUsername(res.data.user.name);
                 }     
             })
             .catch((err) => {
@@ -181,9 +192,14 @@ function Home() {
             });
     }, [navigate]);
 
+    useEffect(() => {
+        setTransactionCount(filteredTransactions.length);
+    }, [filteredTransactions]);
+
     return (
         <div>
             <div className="nav">
+            <img className='banner' src={banner} alt="" />
                 <div className="profile" onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
                     <img src={profileIcon} alt="" />
                 </div>
@@ -196,16 +212,16 @@ function Home() {
                     </div>
                 )}
             </div>
-
+            <h2 className='greetings'>Welcome {username}!</h2>
+            
             <div className='search'>
-
+            <div className='total-container'><h3>Sales Count</h3><h4>{transactionCount}</h4></div>
                 <input className='search-input'
                     type="text"
                     placeholder="Search"
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => {setSearchTerm(e.target.value);}}
                 />
-
                 <div className='date'>
                     <div className='startDate'>  <p className='startLabel'>Start Date</p>
                         <input
@@ -246,7 +262,8 @@ function Home() {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredTransactions.map((transaction, index) => (
+                            {
+                                filteredTransactions.map((transaction, index) => (
                                 <tr key={transaction._id} onClick={()=> setIsRowClicked([!isRowClicked[0], index])}>
                                     {(isRowClicked[0] && isRowClicked[1] === index) ? 
                                     (<td className='operations'>
@@ -269,8 +286,8 @@ function Home() {
                         </tbody>
                     </table>)}
             <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
-
         </div>
+
     );
 }
 

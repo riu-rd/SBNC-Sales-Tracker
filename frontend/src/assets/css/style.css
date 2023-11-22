@@ -4,6 +4,7 @@
     font-family: 'MS Reference Sans Serif', sans-serif;
     margin: 0;
     --bg: #d9d9d9;
+    --maincolor: #112376;
 }
 
 body {
@@ -136,14 +137,14 @@ button.main-buttons {
 }
 
 .forgot {
-    color: #2C3E7E;
+    color: var(--maincolor);
     font-weight: 600;
     font-size: 12px;
 }
 
 .sign-up,
 .log-in {
-    color: #2C3E7E;
+    color: var(--maincolor);
     font-weight: 600;
 }
 
@@ -328,6 +329,50 @@ input[type="date" i] {
     border:  2px solid var(--bg) !important;
     min-width: 8%;
     width: 8%;;
+}
+
+.error-message {
+    color: red;
+}
+
+.banner {
+    height: 70px;
+    margin-left: 5px;
+}
+
+.greetings {
+    color: var(--maincolor);
+    border-bottom: none;
+    text-align: start;
+    margin: 20px 15px;
+}
+
+.total-container {
+    width: 10%;
+    display:inline-block;
+    position:relative;
+    background-color: white;
+    margin-left: 160px;
+    padding: 15px 10px;
+    border: solid 3px var(--maincolor);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.total-container h3{
+    color: white;
+    text-align: center;
+    position: relative;
+    border-bottom: dotted 3px var(--maincolor);
+    background-color: var(--maincolor);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.total-container h4{
+    color: var(--maincolor);
+    text-align: center;
+    position: relative;
 }
 
 ::-webkit-scrollbar {

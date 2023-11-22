@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/css/style.css';
-import logoImage from '../assets/images/logo2.png';
+// @ts-ignore
+import logoImage from '../assets/images/sbnc_logo.png';
 import { Link } from 'react-router-dom';
 
 function EmailVerification() {
