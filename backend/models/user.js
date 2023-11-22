@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema({
      approved: {
           type: SchemaTypes.Boolean,
           default: false
+     },
+     createdAt: {
+          type: SchemaTypes.Date,
+          default: Date.now,
+          required: true
      }
 })
 

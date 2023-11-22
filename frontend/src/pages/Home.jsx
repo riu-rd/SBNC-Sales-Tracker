@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/style.css';
 // import logoImage from './assets/sbnc_logo.png';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // @ts-ignore
 import profileIcon from '../assets/images/account (1).png';
 // @ts-ignore
@@ -41,6 +41,7 @@ function Home() {
                 fetchAndUpdateTransactions();
             })
             .catch((err) => {
+                alert("Error submitting new transactions data");
                 console.error('Error submitting data:', err.message);
             });
         setIsDataEntryOpen(false);
@@ -199,6 +200,8 @@ function Home() {
         <div>
             <div className="nav">
             <img className='banner' src={banner} alt="" />
+            <Link to='/home'><button className="btn-nav">Transactions</button></Link>
+            <Link to='/user-management'><button className="btn-nav">Users</button></Link>
                 <div className="profile" onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
                     <img src={profileIcon} alt="" />
                 </div>
