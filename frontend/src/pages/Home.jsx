@@ -52,7 +52,6 @@ function Home() {
         .then((res) => {
             setTransactions(res.data);
             setLoading(false);
-            setTransactionCount(res.data.length);
           })
           .catch((err) => {
             console.error(err.message);
