@@ -12,6 +12,7 @@ import Spinner from '../components/Spinner';
 import DataEntryForm from '../components/DataEntryForm';
 import DeleteButton from '../components/DeleteButton';
 import UpdateButton from '../components/EditButton';
+import ProfilePage from '../components/ProfilePage';//josh
 
 function Home() {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Home() {
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isDataEntryOpen, setIsDataEntryOpen] = useState(false);
     const [isRowClicked, setIsRowClicked] = useState([false, -1]);
+    const [isProfilePageOpen, setIsProfilePageOpen] = useState(false);//josh
 
     // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
@@ -150,6 +152,11 @@ function Home() {
         setIsDataEntryOpen(false);
     };
 
+    // When Profile Page is clicked
+    const handleProfileClick = () => {
+        setIsProfilePageOpen(!isProfilePageOpen);;
+    };
+
     // function used for Filtering
     const filteredTransactions = transactions.filter((transaction) => {
         const transactionValues = Object.values(transaction);
@@ -190,13 +197,13 @@ function Home() {
                 {isProfileDropdownOpen && (
                     <div className="profile-dropdown">
                         <ul>
-                            <li>Profile</li>
+                            <li onClick={handleProfileClick}>Profile</li>
                             <li onClick={handleLogout}>Logout</li>
                         </ul>
                     </div>
                 )}
             </div>
-
+            {isProfilePageOpen && <ProfilePage />}
             <div className='search'>
 
                 <input className='search-input'
