@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import SecurityCode from './pages/SecurityCode';
 import Home from './pages/Home';
+import EmailVerification from './pages/EmailVerification';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/security-code" element={<SecurityCode />} />
           <Route path="/home" element={<Home />} /> 
+          <Route path='/email-verification' element={<EmailVerification />} />
       </Routes>
     </div>
   );

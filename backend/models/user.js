@@ -18,7 +18,16 @@ const userSchema = new mongoose.Schema({
      },
      access: {
           type: SchemaTypes.Number,
+          default: 1,
           required: true
+     },
+     verified: {
+          type: SchemaTypes.Boolean,
+          default: false
+     },
+     approved: {
+          type: SchemaTypes.Boolean,
+          default: false
      }
 })
 

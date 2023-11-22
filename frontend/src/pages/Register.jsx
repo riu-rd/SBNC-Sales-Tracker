@@ -19,13 +19,12 @@ function Register() {
             axios.post("http://localhost:8080/register", {
                 name: name,
                 email: email,
-                password: pass,
-                access: 1
+                password: pass
             }, {
                 withCredentials: true
             }).then((res) => {
                 console.log("User Registered Successfully: ", res.data);
-                navigate('/');
+                navigate('/email-verification');
             }).catch((err) => {
                 alert("Email already exists");
                 console.error(err.message);
