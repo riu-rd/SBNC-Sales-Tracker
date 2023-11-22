@@ -1,0 +1,33 @@
+@import url('https://fonts.cdnfonts.com/css/ms-reference-sans-serif');
+:root {
+    --maincolor: #0c2075;
+    --submit: #00A97F;
+    --cancel: rgb(255, 56, 86);
+    box-sizing: inherit;
+    font-family: inherit;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: 'MS Reference Sans Serif', sans-serif;
+}
+
+.profile-container {
+    display: flex;
+    border-radius: 20px;
+    border: solid 10px #0c2075;
+    position:absolute;
+    flex-direction: column;
+    min-width: 20%;
+    min-height: 65%;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 10px;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    transform: translate(-50%, -40%);
+    color: #0c2075;
+}
