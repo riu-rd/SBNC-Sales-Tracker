@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
      name: {
           type: SchemaTypes.String,
           required: true,
-          unique: true
      },
      branch: {
           type: SchemaTypes.String,

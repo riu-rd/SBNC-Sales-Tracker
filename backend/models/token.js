@@ -10,6 +10,11 @@ const tokenSchema = new mongoose.Schema({
     token: {
         type: SchemaTypes.String,
         required: true
+    },
+    createdAt: {
+        type: SchemaTypes.Date,
+        default: Date.now,
+        expires: 300 // TTL in seconds (5 minutes)
     }
 });
 

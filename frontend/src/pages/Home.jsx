@@ -34,6 +34,7 @@ function Home() {
     //User Variables
     const[currentUser, setCurrentUser] = useState("");
     const[transactionCount, setTransactionCount] = useState(0);
+    const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
     // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
@@ -193,9 +194,19 @@ function Home() {
             });
     }, [navigate]);
 
+    // Set transaction count when the table changes
     useEffect(() => {
         setTransactionCount(filteredTransactions.length);
     }, [filteredTransactions]);
+
+    // Initialize the Date Display
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentDateTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
         <div>
@@ -206,6 +217,7 @@ function Home() {
                 <div className="profile" onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
                     <img src={profileIcon} alt="" />
                 </div>
+                <div className='date-display'><h3>{currentDateTime.toLocaleString()}</h3></div>
                 {isProfileDropdownOpen && (
                     <div className="profile-dropdown">
                         <ul>
@@ -215,9 +227,9 @@ function Home() {
                     </div>
                 )}
             </div>
-            <h2 className='greetings'>Welcome {currentUser.
-            // @ts-ignore
-            name}!</h2>
+            <h2 className='greetings'>Logged In: {
+                // @ts-ignore
+                currentUser.name}</h2>
             <div className='search'>
             <div className='total-container'><h3>Sales Count</h3><h4>{transactionCount}</h4></div>
                 <input className='search-input'

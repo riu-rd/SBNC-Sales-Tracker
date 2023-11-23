@@ -350,6 +350,9 @@ input[type="date" i] {
     border-bottom: none;
     text-align: start;
     margin: 20px 15px;
+    padding-bottom: 10px; 
+    font-size: 1.5em; 
+    font-weight: bold; 
 }
 
 .total-container {
@@ -428,5 +431,27 @@ input[type="date" i] {
     transform: skewX(-45deg) scale(1, 1);
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
+  }
+
+  .date-display {
+    float: right;
+    color: white;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    margin-top: 15px;
+  }
+  
+  .date-display h3 {
+    margin: 0;
+    padding: 8px 12px;
+    background-color: var(--maincolor); /* Blue background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+    display: inline-block;
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+  }
+  
+  .date-display:hover h3 {
+    background-color: #2980b9; /* Darker blue on hover */
   }
   

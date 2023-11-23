@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
+import Spinner from '../components/Spinner';
 
 function Register() {
     const [name, setName] = useState('');
@@ -14,6 +15,7 @@ function Register() {
     const [pass, setPass] = useState('');
     const [confpass, setConfPass] = useState('');
     const [isError, setIsError] = useState([false, ""]);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,6 +24,8 @@ function Register() {
             setIsError([true, "Error: Fill up all fields"]);
         } else {
             if (pass === confpass) {
+                setLoading(true);
+                setIsError([false, ""]);
                 axios.post("http://localhost:8080/register", {
                     name: name,
                     branch: branch,
@@ -31,9 +35,10 @@ function Register() {
                     withCredentials: true
                 }).then((res) => {
                     console.log("User Registered Successfully: ", res.data);
-                    setIsError([false, ""]);
+                    setLoading(false);
                     navigate('/email-verification');
                 }).catch((err) => {
+                    setLoading(false);
                     setIsError([true, "Error: Email already exists"]);
                     console.error(err.message);
                 });
@@ -66,7 +71,7 @@ function Register() {
                     </div>
                     {isError[0] && <p className='error-message'>{isError[1]}</p>}
                     <div className="input">
-                        <div className="inputName">
+                        { loading ? (<><Spinner /><div className="container"></div></>) : (<><div className="inputName">
                             <label htmlFor="name" className="center">Name</label>
                             <input type="text" name="name" placeholder="Juan Dela Cruz" onChange={(e)=> setName(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>
@@ -89,7 +94,7 @@ function Register() {
                         <div className="inputConfirmPass">
                             <label htmlFor="confirmPassword" className="center">Confirm Password</label>
                             <input type="password" name="confirmPassword"  placeholder="confirm password" onChange={(e)=> setConfPass(e.target.value)} onKeyDown={handleKeyPress} required/>
-                        </div>
+                        </div></>)}
                     </div>
                     <div className="center">
                         <button className="signUpbtn main-buttons" onClick={registerUser}>Sign Up</button>

@@ -29,7 +29,6 @@ router.post("/register", async (req, res) => {
                     password: hashedPassword,
                 });
                 await newUser.save();
-                res.status(200).json({message: "User created: Confirmation email sent"});
 
                 // Generate Verification Token
                 const newToken = new Token ({
@@ -41,6 +40,7 @@ router.post("/register", async (req, res) => {
                 // Send Verification Email
                 const link = `http://localhost:8080/confirm/${newToken.token}`;
                 await verifyEmail(req.body.email, link);
+                res.status(200).json({message: "User created: Confirmation email sent"});
             }
         }
     } catch (err) {
