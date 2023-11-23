@@ -46,6 +46,10 @@ const transactionSchema = new mongoose.Schema({
      branch: {
         type: SchemaTypes.String,
         required: true
+    },
+    addedby: {
+        type: SchemaTypes.String,
+        required: true
     }
  });
  

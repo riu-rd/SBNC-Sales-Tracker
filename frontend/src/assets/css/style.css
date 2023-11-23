@@ -135,6 +135,11 @@ button.main-buttons {
     font-size: 20px;
     cursor: pointer;
 }
+button.main-buttons:hover {
+    background-color: white;
+    color: #112376;
+    border: solid 2px #112376;
+}
 
 .forgot {
     color: var(--maincolor);
@@ -262,7 +267,7 @@ input[type="date" i] {
 }
 
 .transaction-table th {
-    width: 8%;
+    width: 7%;
     min-width: 5%;
     background-color: #112376; 
     text-align: center;
@@ -402,7 +407,7 @@ input[type="date" i] {
     overflow: hidden;
   }
   
-  button:hover {
+  .btn-nav:hover {
     color: #0c2075;
   }
   

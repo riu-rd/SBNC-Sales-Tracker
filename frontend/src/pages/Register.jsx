@@ -9,6 +9,7 @@ import axios from 'axios';
 
 function Register() {
     const [name, setName] = useState('');
+    const [branch, setBranch] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [confpass, setConfPass] = useState('');
@@ -17,12 +18,13 @@ function Register() {
     const navigate = useNavigate();
 
     const registerUser = () => {
-        if (!name || !email || !pass || !confpass) {
+        if (!name || !branch || !email || !pass || !confpass) {
             setIsError([true, "Error: Fill up all fields"]);
         } else {
             if (pass === confpass) {
                 axios.post("http://localhost:8080/register", {
                     name: name,
+                    branch: branch,
                     email: email,
                     password: pass
                 }, {
@@ -67,6 +69,10 @@ function Register() {
                         <div className="inputName">
                             <label htmlFor="name" className="center">Name</label>
                             <input type="text" name="name" placeholder="Juan Dela Cruz" onChange={(e)=> setName(e.target.value)} onKeyDown={handleKeyPress} required/>
+                        </div>
+                        <div className="inputName">
+                            <label htmlFor="branch" className="center">Branch</label>
+                            <input type="text" name="branch" placeholder="Branch Name" onChange={(e)=> setBranch(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>
                         <div className="inputEmail">
                             <label htmlFor="email" className="center">Email</label>

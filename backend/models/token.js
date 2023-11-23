@@ -11,6 +11,6 @@ const tokenSchema = new mongoose.Schema({
         type: SchemaTypes.String,
         required: true
     }
-})
+});
 
 export const Token = mongoose.model('Token', tokenSchema);

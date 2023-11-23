@@ -2,10 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import '../assets/css/data-entry-form.css';
 
-const DataEntryForm = ({onSubmit, onCancel}) => {
+const DataEntryForm = ({onSubmit, onCancel, branch, currUser}) => {
     const [formData, setFormData] = useState({
-        date: '',
-        branch: '',
+        date: new Date().toISOString().split('T')[0],
+        branch: branch,
+        addedby: currUser,
         name: '',
         series: '',
         os: '',
@@ -20,7 +21,7 @@ const DataEntryForm = ({onSubmit, onCancel}) => {
     // Function is called whenever data in the form changes
     const handleChange = (e) => {
         let value;
-        const commonProperties = ["date", "branch", "name", "seller", "assembler"];
+        const commonProperties = ["date", "branch", "name", "seller", "assembler", "addedby"];
         const numericProperties = ["series", "os", "invoice"];
 
         // Make sure that values match their data type
@@ -67,9 +68,9 @@ const DataEntryForm = ({onSubmit, onCancel}) => {
                 <label htmlFor='addDate'>Date: </label>
                 <input type='date' id="addDate" name='date' value={formData.date} onChange={handleChange} required/>
                 <label htmlFor='addBranch'>Branch: </label>
-                <input type='text' id="addBranch" name='branch' value={formData.branch} onChange={handleChange} required/>
-                <label htmlFor='addName'>Customer Name: </label>
-                <input type='text' id="addName"name='name' value={formData.name} onChange={handleChange} required/>
+                <input type='text' id="addBranch" name='branch' value={formData.branch} onChange={handleChange} required disabled/>
+                <label htmlFor='addAddedBy'>Added By: </label>
+                <input type='text' id="addAddedBy" name='addedby' value={formData.addedby} onChange={handleChange} required disabled/>
             </fieldset>
             <fieldset>
                 <label htmlFor='addSeries'>C-Series: </label>
@@ -80,6 +81,8 @@ const DataEntryForm = ({onSubmit, onCancel}) => {
                 <input type='number' id="addInvoice" name='invoice' value={formData.invoice} onChange={handleChange} required/>
             </fieldset>
             <fieldset>
+                <label htmlFor='addName'>Customer Name: </label>
+                <input type='text' id="addName" name='name' value={formData.name} onChange={handleChange} required/>
                 <label htmlFor='addSeller'>Seller: </label>
                 <input type='text' id="addSeller" name='seller' value={formData.seller} onChange={handleChange} required/>
                 <label htmlFor='addAssembler'>Assembler: </label>

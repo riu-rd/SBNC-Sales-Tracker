@@ -7,10 +7,13 @@ const userSchema = new mongoose.Schema({
           required: true,
           unique: true
      },
+     branch: {
+          type: SchemaTypes.String,
+          required: true,
+     },
      email: {
           type: SchemaTypes.String,
           required: true,
-          unique: true
      },
      password: {
           type: SchemaTypes.String,
@@ -23,17 +26,19 @@ const userSchema = new mongoose.Schema({
      },
      verified: {
           type: SchemaTypes.Boolean,
-          default: false
+          default: false,
+          required: true
      },
      approved: {
           type: SchemaTypes.Boolean,
-          default: false
+          default: false,
+          required: true
      },
      createdAt: {
-          type: SchemaTypes.Date,
-          default: Date.now,
-          required: true
+          type: SchemaTypes.String,
+          default: new Date().toISOString().split('T')[0],
+          required: true,
      }
-})
+});
 
 export const User = mongoose.model('User', userSchema);

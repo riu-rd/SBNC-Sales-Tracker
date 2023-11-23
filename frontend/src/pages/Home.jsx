@@ -22,15 +22,17 @@ function Home() {
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState([]);
     //Filtering Transactions
+    const [defaultStartDate, setDefaultStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString());
+    const [defaultEndDate, setDefaultEndDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).toISOString());
     const [searchTerm, setSearchTerm] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    const [startDate, setStartDate] = useState(defaultStartDate);
+    const [endDate, setEndDate] = useState(defaultEndDate);
     //Dropdowns and Popups
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isDataEntryOpen, setIsDataEntryOpen] = useState(false);
     const [isRowClicked, setIsRowClicked] = useState([false, -1]);
     //User Variables
-    const[username, setUsername] = useState("");
+    const[currentUser, setCurrentUser] = useState("");
     const[transactionCount, setTransactionCount] = useState(0);
 
     // [CREATE] When Data Entry Submit Button is Clicked
@@ -49,7 +51,7 @@ function Home() {
 
     // [READ] Call this function when fetching Transactions from the server
     const fetchAndUpdateTransactions = () => {
-        axios.get('http://localhost:8080/transactions', { withCredentials: true})
+        axios.get(`http://localhost:8080/transactions/${startDate}/${endDate}`, { withCredentials: true})
         .then((res) => {
             setTransactions(res.data);
             setLoading(false);
@@ -164,26 +166,25 @@ function Home() {
         return (
             transactionValues.some((value) =>
                 value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-            ) &&
-            // @ts-ignore
-            (startDate === '' || transaction.date >= startDate) &&
-            // @ts-ignore
-            (endDate === '' || transaction.date <= endDate)
+            )
         )
     }); 
 
-    // Initialize the table
+    // Filter the table based on datae
     useEffect(() => {
         setLoading(true);
         fetchAndUpdateTransactions();
-    }, []);
+    }, [startDate, endDate]);
 
+    // Verify if user is indeed authenticated
     useEffect(() => {
         axios.get('http://localhost:8080/user', { withCredentials: true })
             .then((res) => {
+                setDefaultStartDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString());
+                setDefaultEndDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString());
                 if (res.data) {
                     console.log("Currently Logged In: ", res.data.user.name);
-                    setUsername(res.data.user.name);
+                    setCurrentUser(res.data.user);
                 }     
             })
             .catch((err) => {
@@ -214,8 +215,9 @@ function Home() {
                     </div>
                 )}
             </div>
-            <h2 className='greetings'>Welcome {username}!</h2>
-            
+            <h2 className='greetings'>Welcome {currentUser.
+            // @ts-ignore
+            name}!</h2>
             <div className='search'>
             <div className='total-container'><h3>Sales Count</h3><h4>{transactionCount}</h4></div>
                 <input className='search-input'
@@ -230,7 +232,7 @@ function Home() {
                             type="date"
                             placeholder="Start Date"
                             value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
+                            onChange={(e) => {e.target.value === '' ? setStartDate(defaultStartDate) : setStartDate(e.target.value)}}
                         /></div>
 
                     <div className='endDate'>
@@ -239,13 +241,15 @@ function Home() {
                             type="date"
                             placeholder="End Date"
                             value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
+                            onChange={(e) => {e.target.value === '' ? setEndDate(defaultEndDate) : setEndDate(e.target.value)}}
                         />
                     </div>
 
                 </div>
                 <button className='transac-btn main-buttons' onClick={() => setIsDataEntryOpen(!isDataEntryOpen)}>Add Transaction</button></div>
-                {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel}/>)}
+                {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel} 
+                // @ts-ignore
+                branch={currentUser.branch} currUser={currentUser.name}/>)}
                     {loading ? (<Spinner />) : (<table className="transaction-table">
                         <thead>
                             <tr>
@@ -261,6 +265,7 @@ function Home() {
                                 <th>Total</th>
                                 <th>VAT Sale</th>
                                 <th>VAT Amount</th>
+                                <th>Added By</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -283,6 +288,7 @@ function Home() {
                                     <td>{transaction.total}</td>
                                     <td>{transaction.vatsale}</td>
                                     <td>{transaction.vatamount}</td>
+                                    <td>{transaction.addedby}</td>
                                 </tr>
                             ))}
                         </tbody>

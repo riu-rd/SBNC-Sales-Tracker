@@ -5,14 +5,14 @@ import { checkAuthenticated } from "./auth.js";
 const router = express.Router();
 router.use(checkAuthenticated);
 
-// Create
+// CREATE
 router.post("/", async (req, res) => {
     try {
         if (
             !req.body.date || !req.body.name || !req.body.series ||
             !req.body.os || !req.body.invoice || !req.body.seller ||
             !req.body.assembler || !req.body.total || !req.body.vatsale ||
-            !req.body.vatamount || !req.body.branch
+            !req.body.vatamount || !req.body.branch || !req.body.addedby
         ) {
             return res.status(400).json({message: "Send all required fields"});
         }
@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
             vatsale: req.body.vatsale, 
             vatamount: req.body.vatamount, 
             branch: req.body.branch, 
+            addedby: req.body.addedby
         });
 
         await newTransaction.save();
@@ -39,15 +40,30 @@ router.post("/", async (req, res) => {
     }
 });
 
-// Read
-router.get("/", async (req, res) => {
+// READ
+    // [DEFAULT] Get DATE FILTER transactions
+router.get("/:startdate/:enddate", async (req, res) => {
     try {
-        const transactions = await Transaction.find({});
-        transactions.sort((a, b) => {
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            return dateB.getDate() - dateA.getDate();
-        });
+        // Default to the current month if startdate and enddate are not provided
+        const startDate = req.params.startdate || new Date().toISOString();
+        const endDate = req.params.enddate || new Date().toISOString();
+        console.log("Get Request From: ", startDate, " To: ", endDate);
+
+        const transactions = await Transaction.find({
+            date: { $gte: startDate, $lte: endDate }
+        }).sort({ date: -1 });
+
+        return res.status(200).json(transactions);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({ message: err.message });
+    }
+});
+
+    // Get ALL transactions
+router.get("/all", async (req, res) => {
+    try {
+        const transactions = await Transaction.find({}).sort({ date: -1 });
         return res.status(200).json(transactions);
     } catch (err) {
         console.error(err.message);
@@ -55,6 +71,7 @@ router.get("/", async (req, res) => {
     }
 });
 
+    //Get SINGLE transaction by its ID
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -66,7 +83,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// Update
+// UPDATE
 router.put("/:id", async (req, res) => {
     try {
         if (
@@ -92,7 +109,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-// Delete
+// DELETE
 router.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;

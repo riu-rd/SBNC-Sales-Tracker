@@ -12,21 +12,21 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
     try {
         if (
-            !req.body.name || !req.body.email ||
+            !req.body.name || !req.body.branch || !req.body.email ||
             !req.body.password
         ) {
             return res.status(400).json({message: "Send all required fields"});
         } else {
-            const existingUser = await User.findOne({email: req.body.email});
+            const existingUser = await User.findOne({email: req.body.email, verified: true});
             if (existingUser) {
                 return res.status(403).json({message: "User already exists"});
             } else {
                 const hashedPassword = await bcrypt.hash(req.body.password, 10);
                 const newUser = new User({
                     name: req.body.name,
+                    branch: req.body.branch,
                     email: req.body.email,
                     password: hashedPassword,
-                    access: req.body.access
                 });
                 await newUser.save();
                 res.status(200).json({message: "User created: Confirmation email sent"});
