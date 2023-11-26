@@ -71,7 +71,7 @@ function Register() {
                     </div>
                     {isError[0] && <p className='error-message'>{isError[1]}</p>}
                     <div className="input">
-                        { loading ? (<><Spinner /><div className="container"></div></>) : (<><div className="inputName">
+                        { loading ? (<><Spinner /><div className="container"><br/><br/><br/><br/>Sending Email Verification Link</div></>) : (<><div className="inputName">
                             <label htmlFor="name" className="center">Name</label>
                             <input type="text" name="name" placeholder="Juan Dela Cruz" onChange={(e)=> setName(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>

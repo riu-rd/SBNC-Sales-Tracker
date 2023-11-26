@@ -22,8 +22,8 @@ function Home() {
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState([]);
     //Filtering Transactions
-    const [defaultStartDate, setDefaultStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString());
-    const [defaultEndDate, setDefaultEndDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).toISOString());
+    const [defaultStartDate, setDefaultStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0]);
+    const [defaultEndDate, setDefaultEndDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).toISOString().split('T')[0]);
     const [searchTerm, setSearchTerm] = useState('');
     const [startDate, setStartDate] = useState(defaultStartDate);
     const [endDate, setEndDate] = useState(defaultEndDate);
@@ -181,8 +181,8 @@ function Home() {
     useEffect(() => {
         axios.get('http://localhost:8080/user', { withCredentials: true })
             .then((res) => {
-                setDefaultStartDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString());
-                setDefaultEndDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString());
+                setDefaultStartDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0]);
+                setDefaultEndDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split('T')[0]);
                 if (res.data) {
                     console.log("Currently Logged In: ", res.data.user.name);
                     setCurrentUser(res.data.user);
@@ -262,7 +262,7 @@ function Home() {
                 {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel} 
                 // @ts-ignore
                 branch={currentUser.branch} currUser={currentUser.name}/>)}
-                    {loading ? (<Spinner />) : (<table className="transaction-table">
+                    <table className="transaction-table">
                         <thead>
                             <tr>
                                 <th className='operations'></th>
@@ -280,7 +280,7 @@ function Home() {
                                 <th>Added By</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        {loading ? (<Spinner />) : (<tbody>
                             {
                                 filteredTransactions.map((transaction, index) => (
                                 <tr key={transaction._id} onClick={()=> setIsRowClicked([!isRowClicked[0], index])}>
@@ -303,8 +303,8 @@ function Home() {
                                     <td>{transaction.addedby}</td>
                                 </tr>
                             ))}
-                        </tbody>
-                    </table>)}
+                        </tbody>)}
+                    </table>
             <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
         </div>
 
