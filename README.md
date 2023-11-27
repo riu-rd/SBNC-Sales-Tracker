@@ -5,14 +5,20 @@
 ### 2. Go to the BACKEND directory (cd backend)
 
 - do <strong>npm install</strong> to initialize node_modules
-- check if the .env file is initialized.
-- Use .env.example as template to setup .env (.env.example to .env) (use 8080 as port for convenience)
+- Create .env file.
+- Use .env.example as template to setup .env (.env.example to .env)
 - Create a .env file or convert .env.example to .env
-- Type <strong>npm run dev</strong> to run backend.
+  - Your .env file should contain the following:
+    - PORT=8080
+    - MONGODB_URL= url specified in .env.example
+    - SESSION_SECRET='any string as a session secret of your choice'
+    - AUTH_EMAIL='email specified in .env.example'
+    - AUTH_PASS='pass specified in .env.example'
+- After finishing everything, Type <strong>npm run dev</strong> to run backend.
 - Wait for the backend to connect to the cloud MongoDB database and listen on port 8080 (See console)
 - Keep the backend server online so frontend can connect. Open a new terminal window for frontend.
 
-### 3. Go to the FRONTEND directory (cd frontend)
+### 3. In a new terminal, Go to the FRONTEND directory (cd frontend)
 
 - do <strong>npm install</strong> to initialize node_modules
 - Type <strong>npm run dev</strong> to run frontend.
