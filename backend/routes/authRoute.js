@@ -116,4 +116,26 @@ router.delete('/logout', checkAuthenticated, (req, res) => {
     });
 });
 
+// Change passport of the current user 
+router.patch("/change-password", checkAuthenticated, async (req, res) => {
+    try {
+        if (!req.body.password) {
+            return res.status(400).json({message: "Send all required fields"});
+        }
+
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        // @ts-ignore
+        const result = await User.findByIdAndUpdate(req.session.passport.user, {password: hashedPassword});
+        if (!result) {
+            return res.status(404).json({message: "User not found"});
+        }
+        else {
+            return res.status(200).json({message: "User password changed"});
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({ message: err.message });
+    }
+}); 
+
 export default router;

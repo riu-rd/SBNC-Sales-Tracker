@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../assets/images/account (1).png';
 // @ts-ignore
 import banner from '../assets/images/sbnc_banner.png';
-import axios from 'axios';
+import axios from '../axios-config.js';
 
 import Spinner from '../components/Spinner';
 import DeleteButton from '../components/DeleteButton';

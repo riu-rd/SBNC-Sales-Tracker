@@ -4,7 +4,7 @@ import '../assets/css/style.css';
 import logoImage from '../assets/images/sbnc_logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../axios-config.js';
 
 import Spinner from '../components/Spinner';
 
@@ -26,7 +26,7 @@ function Register() {
             if (pass === confpass) {
                 setLoading(true);
                 setIsError([false, ""]);
-                axios.post("http://localhost:8080/register", {
+                axios.post("/register", {
                     name: name,
                     branch: branch,
                     email: email,
