@@ -23,7 +23,7 @@ function Home() {
     const [transactions, setTransactions] = useState([]);
     //Filtering Transactions
     const [defaultStartDate, setDefaultStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0]);
-    const [defaultEndDate, setDefaultEndDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).toISOString().split('T')[0]);
+    const [defaultEndDate, setDefaultEndDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split('T')[0]);
     const [searchTerm, setSearchTerm] = useState('');
     const [startDate, setStartDate] = useState(defaultStartDate);
     const [endDate, setEndDate] = useState(defaultEndDate);
@@ -32,8 +32,8 @@ function Home() {
     const [isDataEntryOpen, setIsDataEntryOpen] = useState(false);
     const [isRowClicked, setIsRowClicked] = useState([false, -1]);
     //User Variables
-    const[currentUser, setCurrentUser] = useState("");
-    const[transactionCount, setTransactionCount] = useState(0);
+    const [currentUser, setCurrentUser] = useState("");
+    const [transactionCount, setTransactionCount] = useState(0);
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
     // [CREATE] When Data Entry Submit Button is Clicked
@@ -80,8 +80,8 @@ function Home() {
                 }).catch((err) => {
                     console.error(err.message);
                 });
-                console.log(`Row deleted with ID: ${transactionID}`);
-        }       
+            console.log(`Row deleted with ID: ${transactionID}`);
+        }
     };
 
     // [DOWNLOAD] Function used for turning filteredTransactions into an Excel File
@@ -92,17 +92,17 @@ function Home() {
             const ws = wb.addWorksheet('Transactions');
 
             ws.columns = [
-                {header: "DATE", key: "date", width: 30},
-                {header: "BRANCH", key: "branch", width: 30},
-                {header: "NAME OF CUSTOMER", key: "name", width: 30},
-                {header: "C-SERIES", key: "series", width: 30},
-                {header: "OS", key: "os", width: 30},
-                {header: "C-INVOICE", key: "invoice", width: 30},
-                {header: "SELLER", key: "seller", width: 30},
-                {header: "ASSEMBLER", key: "assembler", width: 30},
-                {header: "TOTAL", key: "total", width: 30},
-                {header: "VAT SALE", key: "vatsale", width: 30},
-                {header: "VAT AMOUNT", key: "vatamount", width: 30},
+                { header: "DATE", key: "date", width: 30 },
+                { header: "BRANCH", key: "branch", width: 30 },
+                { header: "NAME OF CUSTOMER", key: "name", width: 30 },
+                { header: "C-SERIES", key: "series", width: 30 },
+                { header: "OS", key: "os", width: 30 },
+                { header: "C-INVOICE", key: "invoice", width: 30 },
+                { header: "SELLER", key: "seller", width: 30 },
+                { header: "ASSEMBLER", key: "assembler", width: 30 },
+                { header: "TOTAL", key: "total", width: 30 },
+                { header: "VAT SALE", key: "vatsale", width: 30 },
+                { header: "VAT AMOUNT", key: "vatamount", width: 30 },
             ];
 
             // Set fill color and font color for column headers
@@ -110,11 +110,11 @@ function Home() {
                 cell.fill = {
                     type: 'pattern',
                     pattern: 'solid',
-                    fgColor: { argb: 'ff0c2075' }, 
+                    fgColor: { argb: 'ff0c2075' },
                 };
                 cell.font = {
                     bold: true,
-                    color: { argb: 'ffffffff' }, 
+                    color: { argb: 'ffffffff' },
                 };
             });
 
@@ -130,7 +130,7 @@ function Home() {
                     assembler: transaction.assembler,
                     total: transaction.total,
                     vatsale: transaction.vatsale,
-                    vatamount: transaction.vatamount 
+                    vatamount: transaction.vatamount
                 });
             });
 
@@ -163,13 +163,13 @@ function Home() {
     // function used for Filtering
     const filteredTransactions = transactions.filter((transaction) => {
         const transactionValues = Object.values(transaction);
-        
+
         return (
             transactionValues.some((value) =>
                 value.toString().toLowerCase().includes(searchTerm.toLowerCase())
             )
         )
-    }); 
+    });
 
     // Filter the table based on datae
     useEffect(() => {
@@ -186,7 +186,7 @@ function Home() {
                 if (res.data) {
                     console.log("Currently Logged In: ", res.data.user.name);
                     setCurrentUser(res.data.user);
-                }     
+                }
             })
             .catch((err) => {
                 navigate("/");
@@ -211,9 +211,9 @@ function Home() {
     return (
         <div>
             <div className="nav">
-            <img className='banner' src={banner} alt="" />
-            <Link to='/home'><button className="btn-nav">Transactions</button></Link>
-            <Link to='/user-management'><button className="btn-nav">Users</button></Link>
+                <img className='banner' src={banner} alt="" />
+                <Link to='/home'><button className="btn-nav">Transactions</button></Link>
+                <Link to='/user-management'><button className="btn-nav">Users</button></Link>
                 <div className="profile" onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
                     <img src={profileIcon} alt="" />
                 </div>
@@ -221,7 +221,9 @@ function Home() {
                 {isProfileDropdownOpen && (
                     <div className="profile-dropdown">
                         <ul>
-                            <li>Profile</li>
+                            <Link to="/profile" style={{ textDecoration: 'none', color: 'black' }}>
+                                <li>Profile</li>
+                            </Link>
                             <li onClick={handleLogout}>Logout</li>
                         </ul>
                     </div>
@@ -231,12 +233,12 @@ function Home() {
                 // @ts-ignore
                 currentUser.name}</h2>
             <div className='search'>
-            <div className='total-container'><h3>Sales Count</h3><h4>{transactionCount}</h4></div>
+                <div className='total-container'><h3>Sales Count</h3><h4>{transactionCount}</h4></div>
                 <input className='search-input'
                     type="text"
                     placeholder="Search"
                     value={searchTerm}
-                    onChange={(e) => {setSearchTerm(e.target.value);}}
+                    onChange={(e) => { setSearchTerm(e.target.value); }}
                 />
                 <div className='date'>
                     <div className='startDate'>  <p className='startLabel'>Start Date</p>
@@ -244,7 +246,7 @@ function Home() {
                             type="date"
                             placeholder="Start Date"
                             value={startDate}
-                            onChange={(e) => {e.target.value === '' ? setStartDate(defaultStartDate) : setStartDate(e.target.value)}}
+                            onChange={(e) => { e.target.value === '' ? setStartDate(defaultStartDate) : setStartDate(e.target.value) }}
                         /></div>
 
                     <div className='endDate'>
@@ -253,58 +255,58 @@ function Home() {
                             type="date"
                             placeholder="End Date"
                             value={endDate}
-                            onChange={(e) => {e.target.value === '' ? setEndDate(defaultEndDate) : setEndDate(e.target.value)}}
+                            onChange={(e) => { e.target.value === '' ? setEndDate(defaultEndDate) : setEndDate(e.target.value) }}
                         />
                     </div>
 
                 </div>
                 <button className='transac-btn main-buttons' onClick={() => setIsDataEntryOpen(!isDataEntryOpen)}>Add Transaction</button></div>
-                {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel} 
+            {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel}
                 // @ts-ignore
-                branch={currentUser.branch} currUser={currentUser.name}/>)}
-                    <table className="transaction-table">
-                        <thead>
-                            <tr>
-                                <th className='operations'></th>
-                                <th>Date</th>
-                                <th>Branch</th>
-                                <th>Name of Customer</th>
-                                <th>C-Series</th>
-                                <th>OS</th>
-                                <th>C-Invoice</th>
-                                <th>Seller</th>
-                                <th>Assembler</th>
-                                <th>Total</th>
-                                <th>VAT Sale</th>
-                                <th>VAT Amount</th>
-                                <th>Added By</th>
-                            </tr>
-                        </thead>
-                        {loading ? (<Spinner />) : (<tbody>
-                            {
-                                filteredTransactions.map((transaction, index) => (
-                                <tr key={transaction._id} onClick={()=> setIsRowClicked([!isRowClicked[0], index])}>
-                                    {(isRowClicked[0] && isRowClicked[1] === index) ? 
+                branch={currentUser.branch} currUser={currentUser.name} />)}
+            <table className="transaction-table">
+                <thead>
+                    <tr>
+                        <th className='operations'></th>
+                        <th>Date</th>
+                        <th>Branch</th>
+                        <th>Name of Customer</th>
+                        <th>C-Series</th>
+                        <th>OS</th>
+                        <th>C-Invoice</th>
+                        <th>Seller</th>
+                        <th>Assembler</th>
+                        <th>Total</th>
+                        <th>VAT Sale</th>
+                        <th>VAT Amount</th>
+                        <th>Added By</th>
+                    </tr>
+                </thead>
+                {loading ? (<Spinner />) : (<tbody>
+                    {
+                        filteredTransactions.map((transaction, index) => (
+                            <tr key={transaction._id} onClick={() => setIsRowClicked([!isRowClicked[0], index])}>
+                                {(isRowClicked[0] && isRowClicked[1] === index) ?
                                     (<td className='operations'>
-                                    <UpdateButton onEdit={() => handleRowUpdate(transaction._id)} />{"                "}
-                                    <DeleteButton onDelete={() => handleRowDelete(transaction._id)}/></td>) : 
+                                        <UpdateButton onEdit={() => handleRowUpdate(transaction._id)} />{"                "}
+                                        <DeleteButton onDelete={() => handleRowDelete(transaction._id)} /></td>) :
                                     (<td className='operations'></td>)}
-                                    <td>{transaction.date}</td>
-                                    <td>{transaction.branch}</td>
-                                    <td>{transaction.name}</td>
-                                    <td>{transaction.series}</td>
-                                    <td>{transaction.os}</td>
-                                    <td>{transaction.invoice}</td>
-                                    <td>{transaction.seller}</td>
-                                    <td>{transaction.assembler}</td>
-                                    <td>{transaction.total}</td>
-                                    <td>{transaction.vatsale}</td>
-                                    <td>{transaction.vatamount}</td>
-                                    <td>{transaction.addedby}</td>
-                                </tr>
-                            ))}
-                        </tbody>)}
-                    </table>
+                                <td>{transaction.date}</td>
+                                <td>{transaction.branch}</td>
+                                <td>{transaction.name}</td>
+                                <td>{transaction.series}</td>
+                                <td>{transaction.os}</td>
+                                <td>{transaction.invoice}</td>
+                                <td>{transaction.seller}</td>
+                                <td>{transaction.assembler}</td>
+                                <td>{transaction.total}</td>
+                                <td>{transaction.vatsale}</td>
+                                <td>{transaction.vatamount}</td>
+                                <td>{transaction.addedby}</td>
+                            </tr>
+                        ))}
+                </tbody>)}
+            </table>
             <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
         </div>
 

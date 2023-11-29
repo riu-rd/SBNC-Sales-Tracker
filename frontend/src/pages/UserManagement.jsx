@@ -23,19 +23,19 @@ function Home() {
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isRowClicked, setIsRowClicked] = useState([false, -1]);
     //User Variables
-    const[username, setUsername] = useState("");
+    const [username, setUsername] = useState("");
 
     // [READ] Call this function when fetching Users from the server
     const fetchAndUpdateUsers = () => {
-        axios.get('http://localhost:8080/transactions', { withCredentials: true})
-        .then((res) => {
-            setUsers(res.data);
-            setLoading(false);
-          })
-          .catch((err) => {
-            console.error(err.message);
-            setLoading(false);
-          });
+        axios.get('http://localhost:8080/transactions', { withCredentials: true })
+            .then((res) => {
+                setUsers(res.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error(err.message);
+                setLoading(false);
+            });
     };
 
     // [Update] Call this function when updating a row
@@ -43,16 +43,16 @@ function Home() {
     // [DELETE] Call this function when deleting a row
     const handleRowDelete = (transactionID) => {
         const userConfirmed = window.confirm('Are you sure you want to delete?');
-        if (userConfirmed) {  
-            axios.delete(`http://localhost:8080/transactions/${transactionID}`, {withCredentials: true})
+        if (userConfirmed) {
+            axios.delete(`http://localhost:8080/transactions/${transactionID}`, { withCredentials: true })
                 .then((res) => {
                     console.log("Transaction Deleted", res.data);
                     fetchAndUpdateUsers();
                 }).catch((err) => {
                     console.error(err.message);
                 });
-                console.log(`Row deleted with ID: ${transactionID}`);
-        }       
+            console.log(`Row deleted with ID: ${transactionID}`);
+        }
     };
 
     // [LOGOUT] Logs out the user
@@ -70,12 +70,12 @@ function Home() {
     // function used for Filtering
     const filteredUsers = users.filter((user) => {
         const userValues = Object.values(user);
-        
+
         return (
             userValues.some((value) =>
                 value.toString().toLowerCase().includes(searchTerm.toLowerCase())
             ))
-    }); 
+    });
 
     // Initialize the table
     useEffect(() => {
@@ -89,7 +89,7 @@ function Home() {
                 if (res.data) {
                     console.log("Currently Logged In: ", res.data.user.name);
                     setUsername(res.data.user.name);
-                }     
+                }
             })
             .catch((err) => {
                 navigate("/");
@@ -100,46 +100,48 @@ function Home() {
     return (
         <div>
             <div className="nav">
-            <img className='banner' src={banner} alt="" />
-            <Link to='/home'><button className="btn-nav">Transactions</button></Link>
-            <Link to='/user-management'><button className="btn-nav">Users</button></Link>
+                <img className='banner' src={banner} alt="" />
+                <Link to='/home'><button className="btn-nav">Transactions</button></Link>
+                <Link to='/user-management'><button className="btn-nav">Users</button></Link>
                 <div className="profile" onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
                     <img src={profileIcon} alt="" />
                 </div>
                 {isProfileDropdownOpen && (
                     <div className="profile-dropdown">
                         <ul>
-                            <li>Profile</li>
+                            <Link to="/profile" style={{ textDecoration: 'none', color: 'black' }}>
+                                <li>Profile</li>
+                            </Link>
                             <li onClick={handleLogout}>Logout</li>
                         </ul>
                     </div>
                 )}
             </div>
             <h2 className='greetings'>{/*Welcome {username}!*/}Under Construction!</h2>
-            
+
             <div className='search'>
-            
+
                 <input className='search-input'
                     type="text"
                     placeholder="Search"
                     value={searchTerm}
-                    onChange={(e) => {setSearchTerm(e.target.value);}}
+                    onChange={(e) => { setSearchTerm(e.target.value); }}
                 />
                 <button className='transac-btn main-buttons'>Clear Not Approved</button></div>
-                    {loading ? (<Spinner />) : (<table className="transaction-table">
-                        <thead>
-                            <tr>
-                                <th className='operations'></th>
-                                <th>Created At</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Access Level</th>
-                                <th>Verified</th>
-                                <th>Approved</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/*
+            {loading ? (<Spinner />) : (<table className="transaction-table">
+                <thead>
+                    <tr>
+                        <th className='operations'></th>
+                        <th>Created At</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Access Level</th>
+                        <th>Verified</th>
+                        <th>Approved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/*
                                 filteredUsers.map((transaction, index) => (
                                 <tr key={transaction._id} onClick={()=> setIsRowClicked([!isRowClicked[0], index])}>
                                     {(isRowClicked[0] && isRowClicked[1] === index) ? 
@@ -159,8 +161,8 @@ function Home() {
                                     <td>{transaction.vatamount}</td>
                                 </tr>
                             )) */}
-                        </tbody>
-                    </table>)}
+                </tbody>
+            </table>)}
         </div>
 
     );

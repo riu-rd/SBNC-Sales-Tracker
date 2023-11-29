@@ -116,26 +116,39 @@ router.delete('/logout', checkAuthenticated, (req, res) => {
     });
 });
 
-// Change passport of the current user 
-router.patch("/change-password", checkAuthenticated, async (req, res) => {
+// Change Password
+router.post("/changepassword", checkAuthenticated, async (req, res) => {
     try {
-        if (!req.body.password) {
-            return res.status(400).json({message: "Send all required fields"});
-        }
-
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        // @ts-ignore
-        const result = await User.findByIdAndUpdate(req.session.passport.user, {password: hashedPassword});
-        if (!result) {
-            return res.status(404).json({message: "User not found"});
-        }
-        else {
-            return res.status(200).json({message: "User password changed"});
-        }
+      const { currentPassword, newPassword, confirmPassword } = req.body;
+      const user = await User.findById(req.user._id);
+      const isPasswordMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!currentPassword) {
+        return res.status(400).json({ message: "Current password cannot be empty" });
+      }
+      if (!isPasswordMatch) {
+        return res.status(401).json({ message: "Current password is incorrect" });
+      }
+     
+      if (!newPassword) {
+        return res.status(400).json({ message: "New password cannot be empty" });
+      }
+  
+      if (!confirmPassword) {
+        return res.status(400).json({ message: "Confirm password cannot be empty" });
+      }
+  
+      if (newPassword !== confirmPassword) {
+        return res.status(400).json({ message: "New password and confirm password do not match" });
+      }
+  
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      await User.findByIdAndUpdate(req.user._id, { password: hashedNewPassword });
+  
+      res.status(200).json({ message: "Password changed successfully" });
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send({ message: err.message });
+      console.error(err.message);
+      res.status(500).json({ message: err.message });
     }
-}); 
+});
 
 export default router;
