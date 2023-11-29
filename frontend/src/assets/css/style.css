@@ -37,9 +37,49 @@ body {
     background-color: #F4F4F4;
 }
 
+.profile-form {
+
+    border-radius: 30px;
+    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); */
+    padding: 50px 60px 50px 60px;
+    position: relative;
+    width: 50%;
+    background-color: #112376;
+    color: white;
+    position: relative;
+}
+
+.profile-info p, .status p{
+    padding: 10px 0;
+}
+
+.profile-info{
+    margin: 50px 0 50px 0;
+}
+
+.status{
+    margin-bottom: 50px;
+}
+
+.divider{
+    color: white;
+    position: absolute;
+    top: 320px;
+    width: 88%;
+    left: 60px;
+}
+
+
+.divider2{
+    color: white;
+    position: absolute;
+    top: 440px;
+    width: 88%;
+    left: 60px;
+}
+
 .center {
     text-align: center;
-
 }
 
 .inputEmail,
@@ -187,6 +227,8 @@ hr {
 
 }
 
+
+
 .instruction {
     margin-top: 70px;
     margin-right: 0;
@@ -206,6 +248,20 @@ hr {
     float: right;
     margin: 20px 50px;
     border-radius: 10px;
+}
+
+.pass-btn, .closeBtn{
+    background-color: white;
+    border: none;
+    color: #112376;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+.closeBtn{
+    margin-top: 30px;
 }
 
 .search-input{
@@ -313,10 +369,11 @@ input[type="date" i] {
     text-align: center;
 }
 
-.profile-dropdown > ul li{
+.profile-dropdown ul li{
     text-decoration: none;
     list-style: none;
     padding: 15px;
+    color: black;
 }
 
 .profile-dropdown ul{
@@ -455,3 +512,83 @@ input[type="date" i] {
     background-color: #2980b9; /* Darker blue on hover */
   }
   
+
+  .modal {
+    position: fixed;
+    background-color: white;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    z-index: 2;
+    padding: 30px;
+  }
+  
+  .modal label{
+    color: black;
+    display: block;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1;
+  }
+
+  .modal h2{
+    border: none;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+
+
+  .confirm-btn, .cancel-btn{
+    background-color: #112376;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+
+.current-password, .new-password, .confirm-password{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+}
+
+.modal label{
+    width: 300px;
+    padding: 10px 0;
+}
+
+input[type="password" i] {
+    border: 1px solid #112376;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.btns{
+    text-align: center;
+}
+
+.btns button{
+    margin: 0 10px;
+    width: 40%;
+}
+
+
+.error-message{
+    margin: 20px 0;
+    text-align: center;
+}
