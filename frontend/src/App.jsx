@@ -8,6 +8,7 @@ import SecurityCode from './pages/SecurityCode';
 import Home from './pages/Home';
 import EmailVerification from './pages/EmailVerification';
 import UserManagement from './pages/UserManagement';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/home" element={<Home />} /> 
           <Route path='/email-verification' element={<EmailVerification />} />
           <Route path='/user-management' element={<UserManagement />} />
+          <Route path='/profile' element={<Profile />} />
       </Routes>
     </div>
   );
