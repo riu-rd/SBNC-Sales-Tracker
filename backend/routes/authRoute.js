@@ -116,7 +116,6 @@ router.delete('/logout', checkAuthenticated, (req, res) => {
     });
 });
 
-
 // Change Password
 router.post("/changepassword", checkAuthenticated, async (req, res) => {
     try {
@@ -150,7 +149,6 @@ router.post("/changepassword", checkAuthenticated, async (req, res) => {
       console.error(err.message);
       res.status(500).json({ message: err.message });
     }
-  });
-  
+});
 
 export default router;

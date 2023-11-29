@@ -4,7 +4,7 @@ import '../assets/css/style.css';
 import logoImage from '../assets/images/sbnc_logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axios-config.js';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ function Login() {
     const navigate = useNavigate();
 
     const loginUser = () => {
-        axios.post("http://localhost:8080/login", {
+        axios.post("/login", {
                 email: email,
                 password: pass,
             }, {
@@ -38,7 +38,7 @@ function Login() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8080/user', { withCredentials: true })
+        axios.get('/user', { withCredentials: true })
             .then((res) => {
                 if (res.data) {
                     navigate('/home');

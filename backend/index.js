@@ -10,6 +10,7 @@ import bodyParser from 'body-parser';
 
 import transactionsRoute from "./routes/transactionsRoute.js";
 import authRoute from "./routes/authRoute.js";
+import userRoute from "./routes/userRoute.js";
 import PassportConfig from './passport-config.js';
 
 // Setup .env
@@ -43,6 +44,7 @@ PassportConfig(passport);
 // Use Routers
 app.use("/", authRoute);
 app.use("/transactions", transactionsRoute);
+app.use("/users", userRoute);
 
 // Connect to MongoDB and listen to port
 if (mongodb_url) {
