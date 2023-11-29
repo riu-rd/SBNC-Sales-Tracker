@@ -1,0 +1,594 @@
+@import url('https://fonts.cdnfonts.com/css/ms-reference-sans-serif');
+
+* {
+    font-family: 'MS Reference Sans Serif', sans-serif;
+    margin: 0;
+    --bg: #d9d9d9;
+    --maincolor: #112376;
+}
+
+body {
+    background-color: var(--bg);
+    /* Light Blue */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 5% 0 5% 0;
+    position: relative;
+}
+
+.login_form {
+    border-radius: 30px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    background-color: #F4F4F4;
+    padding: 45px 45px 23px 45px;
+    position: relative;
+}
+
+.form {
+
+    border-radius: 30px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    padding: 50px 60px 50px 60px;
+    position: relative;
+    width: 555px;
+    background-color: #F4F4F4;
+}
+
+.profile-form {
+
+    border-radius: 30px;
+    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); */
+    padding: 50px 60px 50px 60px;
+    position: relative;
+    width: 50%;
+    background-color: #112376;
+    color: white;
+    position: relative;
+}
+
+.profile-info p, .status p{
+    padding: 10px 0;
+}
+
+.profile-info{
+    margin: 50px 0 50px 0;
+}
+
+.status{
+    margin-bottom: 50px;
+}
+
+.divider{
+    color: white;
+    position: absolute;
+    top: 320px;
+    width: 88%;
+    left: 60px;
+}
+
+
+.divider2{
+    color: white;
+    position: absolute;
+    top: 440px;
+    width: 88%;
+    left: 60px;
+}
+
+.center {
+    text-align: center;
+}
+
+.inputEmail,
+.inputPass,
+.inputEmailUsername,
+.inputCode,
+.inputName,
+.inputNumber,
+.inputPass,
+.inputConfirmPass {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    margin-top: 30px;
+}
+
+.inputEmail input,
+.inputNumber input,
+.inputPass input,
+.inputName input,
+.inputConfirmPass input {
+    width: 500px;
+    border: none;
+    background-color: #D9D9D9;
+    height: 40px;
+    border-radius: 5px;
+    margin: 5px 0px 15px 0px;
+}
+
+.inputEmailUsername input,
+.inputCode input {
+    border: none;
+    background-color: #e7e7e7;
+    height: 50px;
+    border-radius: 10px;
+    margin: 20px 0px 60px 0px;
+}
+
+.inputEmail>label,
+.inputNumber>label,
+.inputPass>label,
+.inputName>label,
+.inputConfirmPass>label {
+    font-size: 20px;
+    color: #4B4545;
+}
+
+.inputEmailUsername>label,
+.inputCode>label {
+    font-size: 20px;
+    color: #4B4545;
+}
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    height: auto;
+    width: 120px;
+}
+
+
+.checkbox {
+    font-size: 14px;
+}
+
+input[type="checkbox" i] {
+    margin: 0;
+    width: 12px;
+    height: 12px;
+}
+
+.remember {
+    margin-bottom: 50px;
+    color: #4B4545;
+}
+
+.login{
+    color: #4B4545;
+
+}
+
+button.main-buttons {
+    background-color: #112376;
+    border: none;
+    color: white;
+    width: 280px;
+    height: 45px;
+    border-radius: 50px;
+    font-size: 20px;
+    cursor: pointer;
+}
+button.main-buttons:hover {
+    background-color: white;
+    color: #112376;
+    border: solid 2px #112376;
+}
+
+.forgot {
+    color: var(--maincolor);
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.sign-up,
+.log-in {
+    color: var(--maincolor);
+    font-weight: 600;
+}
+
+.sign {
+    margin-top: 50px;
+    color: #4B4545;
+}
+
+.inputConfirmPass {
+    margin-bottom: 20px;
+}
+
+
+
+.nav {
+    background-color: #112376;
+    height: 70px;
+}
+
+.tl {
+    margin-top: 15px;
+    font-size: 22px;
+    color: #4B4545;
+}
+
+
+hr {
+    width: 100%;
+    position: absolute;
+    padding: 0;
+    left: 0px;
+    height: 2px;
+    top: 240px;
+    background-color: #e7e7e7;
+
+}
+
+
+
+.instruction {
+    margin-top: 70px;
+    margin-right: 0;
+    margin-bottom: 50px;
+    color: #4B4545;
+}
+
+.loginButton {
+    margin-bottom: 15px;
+}
+
+.signUpbtn {
+    margin-bottom: 30px;
+}
+
+.spreadsheet-btn, .transac-btn{
+    float: right;
+    margin: 20px 50px;
+    border-radius: 10px;
+}
+
+.pass-btn, .closeBtn{
+    background-color: white;
+    border: none;
+    color: #112376;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+.closeBtn{
+    margin-top: 30px;
+}
+
+.search-input{
+    position: absolute;
+    top: 22px;
+    right: 350px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid #112376;
+    padding: 10px;
+}
+
+.date{
+    position: absolute;
+    top: 22px;
+    right: 570px;
+    height: 29px;
+    border-radius: 10px;
+    border: 2px solid #112376;
+    padding: 6px;
+    width: 268px;
+    display: flex;
+    background-color: white;
+}
+input[type="date" i] {
+    border: none;
+    background-color: transparent;
+}
+
+.startLabel, .endLabel{
+    font-size: 10px;
+}
+.search{
+    position: relative;
+}
+
+.startDate{
+    padding-right: 10px;
+}
+  
+.transaction-table {
+    width: 95%;
+    border-collapse: collapse;
+    border: 2px solid rgb(147 147 147);
+    border-radius: 10px;
+    margin: 0 auto;
+    table-layout: fixed;
+    overflow:hidden;
+    overflow-y:scroll;
+    height:450px;
+    display: block;
+    border: none;
+}
+
+.transaction-table th, .transaction-table td {
+    border: 1.5px solid #4d4d4d;
+    padding: 8px; 
+    text-align: center;
+}
+
+.transaction-table th {
+    width: 7%;
+    min-width: 5%;
+    background-color: #112376; 
+    text-align: center;
+    color: white;
+    top: 0;
+    z-index: 2;
+    position: sticky;
+}
+
+.transaction-table tr {
+    background-color: #f5f5f5;
+    transition: background-color 0.5s; 
+}
+
+.transaction-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.transaction-table tr:hover {
+    background-color: rgb(202, 202, 202); 
+}
+
+.profile{
+    float: right;
+    padding: 13px 60px;
+}
+
+.profile > img{
+    width: 40px;
+    cursor: pointer;
+
+}
+
+.profile-dropdown{
+    background-color: white;
+    width: 120px;
+    position: absolute;
+    right: 64px;
+    top: 71px;
+    z-index: 1;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.profile-dropdown ul li{
+    text-decoration: none;
+    list-style: none;
+    padding: 15px;
+    color: black;
+}
+
+.profile-dropdown ul{
+    padding-left: 0;
+}
+
+.profile-dropdown > ul li:hover{
+    background-color: #112376;
+    color: white;
+    cursor: pointer;
+}
+
+.operations {
+    background-color: var(--bg) !important;
+    border:  2px solid var(--bg) !important;
+    min-width: 8%;
+    width: 8%;;
+}
+
+.error-message {
+    color: red;
+}
+
+.banner {
+    height: 70px;
+    margin-left: 5px;
+}
+
+.greetings {
+    color: var(--maincolor);
+    border-bottom: none;
+    text-align: start;
+    margin: 20px 15px;
+    padding-bottom: 10px; 
+    font-size: 1.5em; 
+    font-weight: bold; 
+}
+
+.total-container {
+    width: 10%;
+    display:inline-block;
+    position:relative;
+    background-color: white;
+    margin-left: 160px;
+    padding: 15px 10px;
+    border: solid 3px var(--maincolor);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.total-container h3{
+    color: white;
+    text-align: center;
+    position: relative;
+    border-bottom: dotted 3px var(--maincolor);
+    background-color: var(--maincolor);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.total-container h4{
+    color: var(--maincolor);
+    text-align: center;
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+    background: transparent;
+    box-shadow: inset 0 0 6px #0000004d;
+}
+
+.btn-nav {
+    transform: translateY(-30px);
+    width: 8em;
+    height: 2.3em;
+    margin: 2em;
+    background: #0c2075;
+    color: white;
+    border: none;
+    border-radius: 0.625em;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .btn-nav:hover {
+    color: #0c2075;
+  }
+  
+  .btn-nav:after {
+    content: "";
+    background: white;
+    position: absolute;
+    z-index: -1;
+    left: -20%;
+    right: -20%;
+    top: 0;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+    transition: all 0.5s;
+  }
+  
+  .btn-nav:hover:after {
+    transform: skewX(-45deg) scale(1, 1);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+
+  .date-display {
+    float: right;
+    color: white;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    margin-top: 15px;
+  }
+  
+  .date-display h3 {
+    margin: 0;
+    padding: 8px 12px;
+    background-color: var(--maincolor); /* Blue background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+    display: inline-block;
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+  }
+  
+  .date-display:hover h3 {
+    background-color: #2980b9; /* Darker blue on hover */
+  }
+  
+
+  .modal {
+    position: fixed;
+    background-color: white;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    z-index: 2;
+    padding: 30px;
+  }
+  
+  .modal label{
+    color: black;
+    display: block;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1;
+  }
+
+  .modal h2{
+    border: none;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+
+
+  .confirm-btn, .cancel-btn{
+    background-color: #112376;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+
+.current-password, .new-password, .confirm-password{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+
+}
+
+.modal label{
+    width: 300px;
+    padding: 10px 0;
+}
+
+input[type="password" i] {
+    border: 1px solid #112376;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.btns{
+    text-align: center;
+}
+
+.btns button{
+    margin: 0 10px;
+    width: 40%;
+}
+
+
+.error-message{
+    margin: 20px 0;
+    text-align: center;
+}
