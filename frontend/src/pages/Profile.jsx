@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/style.css";
 import { Link } from "react-router-dom";
+// @ts-ignore
 import profileIcon from "../assets/images/account (1).png";
+// @ts-ignore
 import banner from "../assets/images/sbnc_banner.png";
 import "../assets/css/style.css";
-import axios from "axios";
+import axios from "../axios-config.js";
 
 function Profile() {
     const navigate = useNavigate();
@@ -30,7 +32,7 @@ function Profile() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/user", { withCredentials: true })
+            .get("/user", { withCredentials: true })
             .then((res) => {
                 setDefaultStartDate(
                     new Date(new Date().getFullYear(), new Date().getMonth(), 1)
@@ -62,7 +64,7 @@ function Profile() {
 
     const handleLogout = () => {
         axios
-            .delete("http://localhost:8080/logout", { withCredentials: true })
+            .delete("/logout", { withCredentials: true })
             .then((res) => {
                 console.log("Logout successful:", res.data);
                 navigate("/");
@@ -73,6 +75,7 @@ function Profile() {
     };
 
     const getRole = () => {
+        // @ts-ignore
         switch (currentUser.access) {
             case 1:
                 return "Employee";
@@ -86,7 +89,7 @@ function Profile() {
     const handlePasswordChange = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:8080/changepassword",
+                "/changepassword",
                 {
                     currentPassword,
                     newPassword,
@@ -147,18 +150,23 @@ function Profile() {
                 <div className="profile-form">
                     <h1 className="center">Your Profile</h1>
                     <div className="profile-info">
-                        <p>Name: {currentUser.name}</p>
-                        <p>Email: {currentUser.email}</p>
-                        <p>Branch: {currentUser.branch}</p>
+                        <p>Name: {// @ts-ignore
+                            currentUser.name}</p>
+                        <p>Email: {// @ts-ignore
+                            currentUser.email}</p>
+                        <p>Branch: {// @ts-ignore
+                            currentUser.branch}</p>
                         <p>Access: {getRole()}</p>
                     </div>
                     <hr className="divider" />
                     <div className="status">
                         <p>
-                            Verified: {currentUser.verified ? "Verified" : "Not Verified"}
+                            Verified: {// @ts-ignore
+                                currentUser.verified ? "Verified" : "Not Verified"}
                         </p>
                         <p>
-                            Approved: {currentUser.approved ? "Approved" : "Not Approved"}
+                            Approved: {// @ts-ignore
+                                currentUser.approved ? "Approved" : "Not Approved"}
                         </p>
                     </div>
                     <hr className="divider2" />
