@@ -41,7 +41,7 @@ router.post("/register", async (req, res) => {
                 await newToken.save();
 
                 // Send Verification Email
-                const link = `http://localhost:8080/confirm/${newToken.token}`;
+                const link = `https://sbnc-sales-tracker.onrender.com/confirm/${newToken.token}`;
                 await verifyEmail(req.body.email, link);
                 res.status(200).json({message: "User created: Confirmation email sent"});
             }
@@ -59,7 +59,7 @@ router.get("/confirm/:token", async (req, res) => {
         console.log("Verifying Email with Token: ",token);
         await User.updateOne({_id:token?.userId},{$set:{verified: true}});
         await Token.findByIdAndDelete(token?._id);
-        return res.status(201).redirect(`http://localhost:5173`);
+        return res.status(201).redirect('/');
     } catch (err) {
         console.error(err.message);
         res.status(500).send({message: err.message});
