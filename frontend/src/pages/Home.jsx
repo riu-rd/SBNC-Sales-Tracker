@@ -13,8 +13,9 @@ import ExcelJS from 'exceljs';
 
 import Spinner from '../components/Spinner';
 import DataEntryForm from '../components/DataEntryForm';
+import UpdateForm from '../components/UpdateForm';
 import DeleteButton from '../components/DeleteButton';
-import UpdateButton from '../components/EditButton';
+import EditButton from '../components/EditButton';
 
 function Home() {
     const navigate = useNavigate();
@@ -30,11 +31,13 @@ function Home() {
     //Dropdowns and Popups
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isDataEntryOpen, setIsDataEntryOpen] = useState(false);
+    const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);
     const [isRowClicked, setIsRowClicked] = useState([false, -1]);
     //User Variables
     const [currentUser, setCurrentUser] = useState("");
     const [transactionCount, setTransactionCount] = useState(0);
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
+    const[toUpdate, setToUpdate] = useState([]);
 
     // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
@@ -64,14 +67,22 @@ function Home() {
     };
 
     // [Update] Call this function when updating a row
-    const handleRowUpdate = (transactionID) => {
-        console.log(`Row updated with ID: ${transactionID}`);
-        alert(`Update Button on Transaction ID:  [${transactionID}] clicked`);
+    const handleUpdateFormSubmit = (formData) => {
+        axios.put(`/transactions/${formData._id}`, formData, { withCredentials: true})
+        .then((res) => {
+            console.log('Transaction Updated:', res.data);
+            fetchAndUpdateTransactions();
+        })
+        .catch((err) => {
+            alert("Error updating transactions data");
+            console.error('Error updating data:', err.message);
+        });
+        setIsUpdateFormOpen(false);
     };
 
     // [DELETE] Call this function when deleting a row
     const handleRowDelete = (transactionID) => {
-        const userConfirmed = window.confirm('Are you sure you want to delete?');
+        const userConfirmed = window.confirm('Are you sure you want to delete this transaction?');
         if (userConfirmed) {  
             axios.delete(`/transactions/${transactionID}`, {withCredentials: true})
                 .then((res) => {
@@ -80,7 +91,6 @@ function Home() {
                 }).catch((err) => {
                     console.error(err.message);
                 });
-            console.log(`Row deleted with ID: ${transactionID}`);
         }
     };
 
@@ -145,7 +155,9 @@ function Home() {
 
     // [LOGOUT] Logs out the user
     const handleLogout = () => {
-        axios.delete('/logout', { withCredentials: true })
+        const userConfirmed = window.confirm('Are you sure you want to logout?');
+        if (userConfirmed) {
+            axios.delete('/logout', { withCredentials: true })
             .then((res) => {
                 console.log('Logout successful:', res.data);
                 navigate('/');
@@ -153,11 +165,13 @@ function Home() {
             .catch((err) => {
                 console.error('Error during logout:', err.message);
             });
+        }
     };
 
-    // When Data Entry Cancel Button is clicked
-    const handleDataEntryCancel = () => {
-        setIsDataEntryOpen(false);
+    // When Update Button is clicked
+    const handleOnUpdate = (clickedRow) => {
+        setIsUpdateFormOpen(true);
+        setToUpdate(clickedRow);
     };
 
     // function used for Filtering
@@ -171,7 +185,7 @@ function Home() {
         )
     });
 
-    // Filter the table based on datae
+    // Filter the table based on date
     useEffect(() => {
         setLoading(true);
         fetchAndUpdateTransactions();
@@ -213,7 +227,8 @@ function Home() {
             <div className="nav">
                 <img className='banner' src={banner} alt="" />
                 <Link to='/home'><button className="btn-nav">Transactions</button></Link>
-                <Link to='/user-management'><button className="btn-nav">Users</button></Link>
+                {(// @ts-ignore
+                    currentUser.access === 3 || currentUser.access === 2) &&(<Link to='/user-management'><button className="btn-nav">Users</button></Link>)}
                 <div className="profile" onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
                     <img src={profileIcon} alt="" />
                 </div>
@@ -238,7 +253,7 @@ function Home() {
                     type="text"
                     placeholder="Search"
                     value={searchTerm}
-                    onChange={(e) => { setSearchTerm(e.target.value); }}
+                    onChange={(e) => {setSearchTerm(e.target.value) }}
                 />
                 <div className='date'>
                     <div className='startDate'>  <p className='startLabel'>Start Date</p>
@@ -261,10 +276,29 @@ function Home() {
 
                 </div>
                 <button className='transac-btn main-buttons' onClick={() => setIsDataEntryOpen(!isDataEntryOpen)}>Add Transaction</button></div>
-            {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={handleDataEntryCancel}
+            {isDataEntryOpen && (<DataEntryForm onSubmit={handleDataEntrySubmit} onCancel={() => setIsDataEntryOpen(false)}
                 // @ts-ignore
                 branch={currentUser.branch} currUser={currentUser.name} />)}
-            <table className="transaction-table">
+            {isUpdateFormOpen && (<UpdateForm onSubmit={handleUpdateFormSubmit} 
+                                    onCancel={()=>setIsUpdateFormOpen(false)} updateData={toUpdate} />)}
+            {loading ? (<><Spinner /><table className="transaction-table"><thead>
+                    <tr>
+                        <th className='operations'></th>
+                        <th>Date</th>
+                        <th>Branch</th>
+                        <th>Name of Customer</th>
+                        <th>C-Series</th>
+                        <th>OS</th>
+                        <th>C-Invoice</th>
+                        <th>Seller</th>
+                        <th>Assembler</th>
+                        <th>Total</th>
+                        <th>VAT Sale</th>
+                        <th>VAT Amount</th>
+                        <th>Added By</th>
+                    </tr>
+                </thead><tbody></tbody></table></>) : 
+            (<table className="transaction-table">
                 <thead>
                     <tr>
                         <th className='operations'></th>
@@ -282,13 +316,13 @@ function Home() {
                         <th>Added By</th>
                     </tr>
                 </thead>
-                {loading ? (<Spinner />) : (<tbody>
+                <tbody>
                     {
                         filteredTransactions.map((transaction, index) => (
                             <tr key={transaction._id} onClick={() => setIsRowClicked([!isRowClicked[0], index])}>
                                 {(isRowClicked[0] && isRowClicked[1] === index) ?
                                     (<td className='operations'>
-                                        <UpdateButton onEdit={() => handleRowUpdate(transaction._id)} />{"                "}
+                                        <EditButton onEdit={() => handleOnUpdate(transaction)} />{"                "}
                                         <DeleteButton onDelete={() => handleRowDelete(transaction._id)} /></td>) :
                                     (<td className='operations'></td>)}
                                 <td>{transaction.date}</td>
@@ -305,11 +339,10 @@ function Home() {
                                 <td>{transaction.addedby}</td>
                             </tr>
                         ))}
-                </tbody>)}
-            </table>
+                </tbody>
+            </table>)}
             <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
         </div>
-
     );
 }
 

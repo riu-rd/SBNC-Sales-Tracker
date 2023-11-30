@@ -9,13 +9,14 @@ router.use(checkAuthenticated);
     // Get ALL USERS less than the access level of the current user 
 router.get("/", async (req, res) => {
     try {
+        
         // @ts-ignore
         const currentUser = await User.findOne({_id: req.session.passport.user});
         if (currentUser) {
             const level = currentUser.access;
 
-            const users = await User.find({access:{ $lt: level }});
-            return res.status(200).json({users});
+            const users = await User.find({access:{ $lt: level }}).sort({ approved: -1, verified: -1 }).exec();
+            return res.status(200).json(users);
         }
         else {
             res.status(401).json({message: "Unauthorized Access"});
@@ -35,7 +36,7 @@ router.patch("/approval/:id", async (req, res) => {
         const level = currentUser?.access || 1;
         
         if (level > 1) {
-            if (!req.body.approved) {
+            if (!req.body.approved.toString()) {
                 return res.status(400).json({message: "Send all required fields"});
             }
     

@@ -266,8 +266,20 @@ hr {
 
 .search-input{
     position: absolute;
+    display: inline-block;
     top: 22px;
     right: 350px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid #112376;
+    padding: 10px;
+}
+
+.search-user {
+    position: relative;
+    display: block;
+    bottom: 10px;
+    margin-left: 300px;
     height: 20px;
     border-radius: 10px;
     border: 2px solid #112376;
@@ -295,7 +307,7 @@ input[type="date" i] {
     font-size: 10px;
 }
 .search{
-    position: relative;
+    position:relative;
 }
 
 .startDate{
@@ -317,9 +329,12 @@ input[type="date" i] {
 }
 
 .transaction-table th, .transaction-table td {
+    height: 30px; /* Set the desired width for columns */
+    min-height: 30px;
     border: 1.5px solid #4d4d4d;
     padding: 8px; 
     text-align: center;
+    align-items: center;
 }
 
 .transaction-table th {
@@ -390,7 +405,21 @@ input[type="date" i] {
     background-color: var(--bg) !important;
     border:  2px solid var(--bg) !important;
     min-width: 8%;
-    width: 8%;;
+    width: 8%;
+}
+
+.user-operations {
+    background-color: var(--bg) !important;
+    border:  2px solid var(--bg) !important;
+    min-width: 10%;
+    width: 10%;
+}
+
+.user-operations {
+    background-color: var(--bg) !important;
+    border:  2px solid var(--bg) !important;
+    min-width: 8%;
+    width: 12%;
 }
 
 .error-message {
@@ -442,6 +471,7 @@ input[type="date" i] {
 
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track,
@@ -591,4 +621,119 @@ input[type="password" i] {
 .error-message{
     margin: 20px 0;
     text-align: center;
+}
+
+.verified {
+    color: green;
+    border: solid 2px green;
+    border-radius: 10%;
+    margin: 0 10%;
+    text-align: center;
+}
+
+.not-verified {
+    color: red;
+    border: solid 2px red;
+    border-radius: 10%;
+    margin: 0 5%;
+    text-align: center;
+}
+
+.verify-button {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #27ae60;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #2ecc71; 
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  }
+  
+  .verify-button:hover {
+    background-color: #218c58; 
+    border-color: #218c58;
+  }
+  
+  .verify-button:active {
+    background-color: #1b6646; 
+    border-color: #1b6646;
+  }
+
+.unverify-button {
+    display: inline-block;
+    padding: 4px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #e74c3c;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #c0392b; 
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  }
+  
+  .unverify-button:hover {
+    background-color: #962d22; 
+    border-color: #962d22;
+  }
+  
+  .unverify-button:active {
+    background-color: #761f17; 
+    border-color: #761f17;
+  }
+  
+  .access-button {
+    display: inline-block;
+    padding: 4px 2px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #112376;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #112376;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.access-button:hover {
+    background-color: #091a4f;
+    border-color: #091a4f; 
+}
+
+.access-button:active {
+    background-color: #071537;
+    border-color: #071537;
+}
+
+.user-delete-btn-container {
+    margin: 10px 40px;
+}
+.user-delete-btn {
+    float: right;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    background-color: #dc3545; /* Red color for caution/emergency */
+    color: #fff; /* White text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 10px;
+    font-size: 14px;
+}
+
+.user-delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+.user-delete-btn:active {
+    background-color: #bd2130; /* Even darker red on click */
 }
