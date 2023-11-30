@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const isDevelopment = 'development';
+const isDeployment = true;
 
 const instance = axios.create({
-  baseURL: isDevelopment === 'development' ? 'http://localhost:8080' : '/',
+  baseURL: isDeployment ? 'https://sbnc-sales-tracker.onrender.com': 'http://localhost:8080',
   withCredentials: true,
 });
 
