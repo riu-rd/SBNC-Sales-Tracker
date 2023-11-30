@@ -13,7 +13,7 @@ function PassportConfig(passport) {
             } else {
                 const passwordMatch = await bcrypt.compare(password, user.password);
                 if (passwordMatch && (user.verified === true)) {
-                    console.log("Authenticated");
+                    console.log("Authenticated: ", user.name);
                     return done(null, user);
                 } else {
                     console.log("Invalid Password");
