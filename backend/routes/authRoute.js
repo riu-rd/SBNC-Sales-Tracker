@@ -27,6 +27,9 @@ router.post("/register", async (req, res) => {
                     branch: req.body.branch,
                     email: req.body.email,
                     password: hashedPassword,
+                    // If there is no user in the database, the first user will be the admin
+                    access: await User.collection.countDocuments() === 0 ? 3 : 1,
+                    approved: await User.collection.countDocuments() === 0
                 });
                 await newUser.save();
 

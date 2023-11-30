@@ -48,3 +48,27 @@ export async function verifyEmail(email, link) {
         console.error(err.message);
     }
 }
+
+// Function to send edit details to admin
+export async function sendAdminEditUpdate(adminEmail, emailSubject, emailHTML) {
+    try {
+        let transporter = nodemailer.createTransport({
+            service: "Gmail",
+            auth: {
+                user: process.env.AUTH_EMAIL,
+                pass: process.env.AUTH_PASS
+            }
+        });
+
+        await transporter.sendMail({
+            from: process.env.AUTH_EMAIL,
+            to: adminEmail,
+            subject: emailSubject,
+            text: "Transaction Edit",
+            html: emailHTML
+        });
+        console.log("Transaction Edit email sent to admin Successfully");
+    } catch (err) {
+        console.error(err.message);
+    }
+}
