@@ -1,0 +1,190 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Adjust the transparency here */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999; /* Ensure the overlay is on top of other elements */
+  }
+
+  h2 {
+    color: #060e33;
+    border-bottom: 3px outset #060e33;
+    width: 70%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+  .radio-input {
+    display: flex;
+    flex-direction: row;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .radio-input input[type="radio"] {
+    display: none;
+  }
+  
+  .radio-input label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color:#060e33;
+    border-radius: 5px;
+    margin-right: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    margin:20px;
+  }
+  
+  .radio-input label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .radio-input input[type="radio"]:checked + label:before {
+    background-color: green;
+    top: 0;
+  }
+  
+  .radio-input input[type="radio"]:checked + label {
+    background-color: royalblue;
+    color: #fff;
+    border-color: rgb(129, 235, 129);
+    animation: radio-translate 0.5s ease-in-out;
+  }
+  
+  @keyframes radio-translate {
+    0% {
+      transform: translateX(0);
+    }
+  
+    50% {
+      transform: translateY(-10px);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .data-container-access {
+    display: flex;
+    border: 3px solid var(--maincolor);
+    position:absolute;
+    flex-direction: column;
+    width: 20%;
+    min-width: 20%;
+    height: 40%;
+    min-height: 40%;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 10px;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    transform: translate(-50%, -40%);
+}
+
+
+#submitBtn, #cancelBtn {
+    padding: 0.3em 1em;
+    background-color: transparent;
+    border-radius: .3em;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: 400;
+    font-size: 17px;
+    border: 1px solid;
+    font-family: inherit;
+    text-transform: uppercase;
+    z-index: 1;
+ }
+
+ .extra-features {
+    margin: 10px;
+ }
+   
+ #submitBtn {
+     color: var(--submit);
+ }
+   
+ #cancelBtn {
+     color: var(--cancel);
+ }
+   
+ #submitBtn::before, #submitBtn::after,
+ #cancelBtn::before, #cancelBtn::after{
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    
+    transition: 1s ease;
+ }
+   
+ #submitBtn::before, #submitBtn::after {
+     background-color: var(--submit);
+ }
+   
+ #cancelBtn::before, #cancelBtn::after {
+     background-color: var(--cancel);
+ }
+   
+ #submitBtn::before, #cancelBtn::before {
+    top: -1em;
+    left: -1em;
+ }
+   
+ #submitBtn::after, #cancelBtn::after {
+    left: calc(100% + 1em);
+    top: calc(100% + 1em);
+ }
+   
+ #submitBtn:hover::before, #submitBtn:hover::after,
+ #cancelBtn:hover::before,
+ #cancelBtn:hover::after{
+    height: 410px;
+    width: 410px;
+ }
+   
+ #submitBtn:hover, #cancelBtn:hover {
+    color: white;
+ }
+   
+ #submitBtn:active, #cancelBtn:active {
+    filter: brightness(.8);
+ }
+
+ form.accessForm {
+    display:block;
+
+ }
+  

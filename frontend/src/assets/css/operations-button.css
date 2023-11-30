@@ -1,5 +1,6 @@
 .btn {
     background-color: transparent;
+    cursor: pointer;
     position: relative;
     border: none;
   }

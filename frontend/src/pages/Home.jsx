@@ -82,7 +82,7 @@ function Home() {
 
     // [DELETE] Call this function when deleting a row
     const handleRowDelete = (transactionID) => {
-        const userConfirmed = window.confirm('Are you sure you want to delete?');
+        const userConfirmed = window.confirm('Are you sure you want to delete this transaction?');
         if (userConfirmed) {  
             axios.delete(`/transactions/${transactionID}`, {withCredentials: true})
                 .then((res) => {
@@ -91,7 +91,6 @@ function Home() {
                 }).catch((err) => {
                     console.error(err.message);
                 });
-            console.log(`Row deleted with ID: ${transactionID}`);
         }
     };
 
@@ -156,7 +155,9 @@ function Home() {
 
     // [LOGOUT] Logs out the user
     const handleLogout = () => {
-        axios.delete('/logout', { withCredentials: true })
+        const userConfirmed = window.confirm('Are you sure you want to logout?');
+        if (userConfirmed) {
+            axios.delete('/logout', { withCredentials: true })
             .then((res) => {
                 console.log('Logout successful:', res.data);
                 navigate('/');
@@ -164,6 +165,7 @@ function Home() {
             .catch((err) => {
                 console.error('Error during logout:', err.message);
             });
+        }
     };
 
     // When Update Button is clicked
@@ -183,7 +185,7 @@ function Home() {
         )
     });
 
-    // Filter the table based on datae
+    // Filter the table based on date
     useEffect(() => {
         setLoading(true);
         fetchAndUpdateTransactions();
@@ -250,7 +252,7 @@ function Home() {
                     type="text"
                     placeholder="Search"
                     value={searchTerm}
-                    onChange={(e) => { setSearchTerm(e.target.value); }}
+                    onChange={(e) => {setSearchTerm(e.target.value) }}
                 />
                 <div className='date'>
                     <div className='startDate'>  <p className='startLabel'>Start Date</p>
@@ -340,7 +342,6 @@ function Home() {
             </table>)}
             <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
         </div>
-
     );
 }
 
