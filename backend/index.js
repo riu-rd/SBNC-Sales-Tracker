@@ -34,7 +34,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: session_secret,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { 
+        maxAge: 8 * 180 * 60 * 1000,
+        httpOnly: true, // Helps mitigate certain types of attacks such as Cross-Site Scripting (XSS)
+        sameSite: 'strict', // Helps protect against Cross-Site Request Forgery (CSRF) attacks
+    },
 }));
 app.use(passport.initialize());
 app.use(passport.session());
