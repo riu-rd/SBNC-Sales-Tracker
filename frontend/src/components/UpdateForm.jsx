@@ -56,13 +56,13 @@ const UpdateForm = ({onSubmit, onCancel, updateData}) => {
                 <label htmlFor='addDate'>Date: </label>
                 <input type='date' id="addDate" name='date' value={formData.date} onChange={handleChange} required/>
                 <label htmlFor='addBranch'>Branch: </label>
-                <input type='text' id="addBranch" name='branch' value={formData.branch} onChange={handleChange} required/>
+                <input type='text' id="addBranch" name='branch' value={formData.branch} onChange={handleChange} required disabled/>
                 <label htmlFor='addAddedBy'>Added By: </label>
-                <input type='text' id="addAddedBy" name='addedby' value={formData.addedby} onChange={handleChange} required/>
+                <input type='text' id="addAddedBy" name='addedby' value={formData.addedby} onChange={handleChange} required disabled/>
             </fieldset>
             <fieldset>
                 <label htmlFor='addSeries'>C-Series: </label>
-                <input type='number' id="addSeries" name='series' value={formData.series} onChange={handleChange} required/>
+                <input type='number' id="addSeries" name='series' value={formData.series} onChange={handleChange} required disabled/>
                 <label htmlFor='addOS'>OS: </label>
                 <input type='number' id="addOS" name='os' value={formData.os} onChange={handleChange} required/>
                 <label htmlFor='addInvoice'>C-Invoice: </label>

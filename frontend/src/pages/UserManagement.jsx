@@ -217,7 +217,8 @@ function Home() {
             <div className="nav">
                 <img className='banner' src={banner} alt="" />
                 <Link to='/home'><button className="btn-nav">Transactions</button></Link>
-                <Link to='/user-management'><button className="btn-nav">Users</button></Link>
+                {(// @ts-ignore
+                    currentUser.access === 3 || currentUser.access === 2) &&(<Link to='/user-management'><button className="btn-nav">Users</button></Link>)}
                 <div className="profile" onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
                     <img src={profileIcon} alt="" />
                 </div>

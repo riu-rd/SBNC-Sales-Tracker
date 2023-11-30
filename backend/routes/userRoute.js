@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
         if (currentUser) {
             const level = currentUser.access;
 
-            const users = await User.find({access:{ $lt: level }});
+            const users = await User.find({access:{ $lt: level }}).sort({ approved: -1, verified: -1 }).exec();
             return res.status(200).json(users);
         }
         else {
