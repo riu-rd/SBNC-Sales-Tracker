@@ -48,7 +48,7 @@ const UpdateForm = ({onSubmit, onCancel, updateData}) => {
     };
 
   return (
-    <div class="modal-overlay">
+    <div className="modal-overlay">
     <div className='data-container'>
         <h2>Update Transaction</h2>
         <form id='addForm' onSubmit={handleSubmit}>
