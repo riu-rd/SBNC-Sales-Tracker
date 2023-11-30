@@ -185,6 +185,15 @@ function Home() {
         )
     });
 
+    const convertAccess = (access) => {
+        switch (access) {
+            case 1: return "Employee";
+            case 2: return "Supervisor";
+            case 3: return "Admin";
+            default: return null;
+        }
+    }
+
     // Filter the table based on date
     useEffect(() => {
         setLoading(true);
@@ -243,7 +252,9 @@ function Home() {
                     </div>
                 )}
             </div>
-            <h2 className='greetings'>Logged In: {
+            <h2 className='greetings'>Logged In [{convertAccess(currentUser.
+// @ts-ignore
+            access)} Access]: {
                 // @ts-ignore
                 currentUser.name}</h2>
             <div className='search'>
@@ -321,8 +332,15 @@ function Home() {
                             <tr key={transaction._id} onClick={() => setIsRowClicked([!isRowClicked[0], index])}>
                                 {(isRowClicked[0] && isRowClicked[1] === index) ?
                                     (<td className='operations'>
-                                        <EditButton onEdit={() => handleOnUpdate(transaction)} />{"                "}
-                                        <DeleteButton onDelete={() => handleRowDelete(transaction._id)} /></td>) :
+                                        { (currentUser.
+// @ts-ignore
+                                        access > 1) && <EditButton onEdit={() => handleOnUpdate(transaction)} />}
+                                        {"                "}
+                                        { (currentUser.
+// @ts-ignore
+                                        access > 1) &&<DeleteButton onDelete={() => handleRowDelete(transaction._id)} />}
+                                        </td>
+                                        ) :
                                     (<td className='operations'></td>)}
                                 <td>{transaction.date}</td>
                                 <td>{transaction.branch}</td>
@@ -340,7 +358,9 @@ function Home() {
                         ))}
                 </tbody>
             </table>)}
-            <button className='spreadsheet-btn main-buttons' onClick={handleOnExport}>Download Spreadsheet</button>
+            <button className='spreadsheet-btn main-buttons' onClick={handleOnExport} disabled={currentUser.
+// @ts-ignore
+            access === 1}>Download Spreadsheet</button>
         </div>
     );
 }

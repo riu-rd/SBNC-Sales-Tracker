@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
             return res.status(200).json(users);
         }
         else {
-            res.status(401).json({message: "Unauthorized Access"});
+            return res.status(401).json({message: "Unauthorized Access"});
         }
     } catch (err) {
         console.error(err.message);

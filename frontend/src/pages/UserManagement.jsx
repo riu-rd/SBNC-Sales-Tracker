@@ -187,6 +187,15 @@ function Home() {
         }
     };
 
+    const convertAccess = (access) => {
+        switch (access) {
+            case 1: return "Employee";
+            case 2: return "Supervisor";
+            case 3: return "Admin";
+            default: return null;
+        }
+    }
+
     // Verify if user is indeed authenticated
     useEffect(() => {
         axios.get('/user', { withCredentials: true })
@@ -234,7 +243,9 @@ function Home() {
                     </div>
                 )}
             </div>
-            <h2 className='greetings'>Logged In: {
+            <h2 className='greetings'>Logged In [{convertAccess(currentUser.
+// @ts-ignore
+            access)} Access]: {
                 // @ts-ignore
                 currentUser.name}</h2>
             <div className='search'>
