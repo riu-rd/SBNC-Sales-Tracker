@@ -17,7 +17,8 @@ function Login() {
         axios.post("/login", {
                 email: email,
                 password: pass,
-            }).then((res) => {
+            }, {withCredentials: true})
+            .then((res) => {
                 console.log("User Authenticated Successfully: ", res.data);
                 setIsError(false);
                 if (res.data) {
@@ -36,7 +37,7 @@ function Login() {
     };
 
     useEffect(() => {
-        axios.get('/user')
+        axios.get('/user', {withCredentials: true})
             .then((res) => {
                 if (res.data) {
                     navigate('/home');

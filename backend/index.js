@@ -21,6 +21,7 @@ const mongodb_url = process.env.MONGODB_URL;
 const session_secret = process.env.SESSION_SECRET || 'secret';
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Connect to MongoDB and listen to port
 if (mongodb_url) {

@@ -41,7 +41,7 @@ function Home() {
 
     // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
-        axios.post('/transactions', formData)
+        axios.post('/transactions', formData, {withCredentials: true})
         .then((res) => {
                 console.log('Transaction Posted:', res.data);
                 fetchAndUpdateTransactions();
@@ -55,7 +55,7 @@ function Home() {
 
     // [READ] Call this function when fetching Transactions from the server
     const fetchAndUpdateTransactions = () => {
-        axios.get(`/transactions/${startDate}/${endDate}`)
+        axios.get(`/transactions/${startDate}/${endDate}`, {withCredentials: true})
         .then((res) => {
             setTransactions(res.data);
             setLoading(false);
@@ -68,7 +68,7 @@ function Home() {
 
     // [Update] Call this function when updating a row
     const handleUpdateFormSubmit = (formData) => {
-        axios.put(`/transactions/${formData._id}`, formData)
+        axios.put(`/transactions/${formData._id}`, formData, {withCredentials: true})
         .then((res) => {
             console.log('Transaction Updated:', res.data);
             fetchAndUpdateTransactions();
@@ -84,7 +84,7 @@ function Home() {
     const handleRowDelete = (transactionID) => {
         const userConfirmed = window.confirm('Are you sure you want to delete this transaction?');
         if (userConfirmed) {  
-            axios.delete(`/transactions/${transactionID}`)
+            axios.delete(`/transactions/${transactionID}`, {withCredentials: true})
                 .then((res) => {
                     console.log("Transaction Deleted", res.data);
                     fetchAndUpdateTransactions();
@@ -157,7 +157,7 @@ function Home() {
     const handleLogout = () => {
         const userConfirmed = window.confirm('Are you sure you want to logout?');
         if (userConfirmed) {
-            axios.delete('/logout')
+            axios.delete('/logout', {withCredentials: true})
             .then((res) => {
                 console.log('Logout successful:', res.data);
                 navigate('/');
@@ -202,7 +202,7 @@ function Home() {
 
     // Verify if user is indeed authenticated
     useEffect(() => {
-        axios.get('/user')
+        axios.get('/user', {withCredentials: true})
             .then((res) => {
                 setDefaultStartDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0]);
                 setDefaultEndDate(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split('T')[0]);
