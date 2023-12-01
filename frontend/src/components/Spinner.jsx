@@ -3,9 +3,14 @@ import '../assets/css/Spinner.css';
 
 const Spinner = () => {
   return (
-    <div className="loader">
-      <div className="justify-content-center jimu-primary-loading"></div>
-    </div>
+<section className="dots-container">
+  <div className="dot"></div>
+  <div className="dot"></div>
+  <div className="dot"></div>
+  <div className="dot"></div>
+  <div className="dot"></div>
+</section>
+
   )
 }
 
