@@ -31,8 +31,6 @@ function Register() {
                     branch: branch,
                     email: email,
                     password: pass
-                }, {
-                    withCredentials: true
                 }).then((res) => {
                     console.log("User Registered Successfully: ", res.data);
                     setLoading(false);

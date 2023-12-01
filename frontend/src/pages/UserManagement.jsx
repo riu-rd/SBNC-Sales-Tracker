@@ -33,7 +33,7 @@ function Home() {
 
     // [CREATE] When Data Entry Submit Button is Clicked
     const handleDataEntrySubmit = (formData) => {
-        axios.post('/transactions', formData, {withCredentials: true})
+        axios.post('/transactions', formData)
         .then((res) => {
                 console.log('Transaction Posted:', res.data);
                 fetchUsers();
@@ -47,7 +47,7 @@ function Home() {
 
     // [READ] Call this function when fetching Users from the server
     const fetchUsers = () => {
-        axios.get('/users', { withCredentials: true})
+        axios.get('/users')
         .then((res) => {
             setUsers(res.data);
             setLoading(false);
@@ -60,7 +60,7 @@ function Home() {
 
     // [UPDATE] Call this function when updating the access level of a user
     const handleAccessChangeApply = (newAccess, updating_user) => {
-        axios.patch(`users/access/${updating_user._id}`, {access: newAccess}, { withCredentials: true})
+        axios.patch(`users/access/${updating_user._id}`, {access: newAccess})
         .then((res) => {
             console.log('User Access Updated:', res.data);
             fetchUsers();
@@ -75,7 +75,7 @@ function Home() {
     const handleRowDelete = (userID) => {
         const userConfirmed = window.confirm('Are you sure you want to delete this user?');
         if (userConfirmed) {  
-            axios.delete(`/users/delete/${userID}`, {withCredentials: true})
+            axios.delete(`/users/delete/${userID}`)
                 .then((res) => {
                     console.log("User Deleted", res.data);
                     fetchUsers();
@@ -89,7 +89,7 @@ function Home() {
     const handleLogout = () => {
         const userConfirmed = window.confirm('Are you sure you want to logout?');
         if (userConfirmed) {
-            axios.delete('/logout', { withCredentials: true })
+            axios.delete('/logout')
             .then((res) => {
                 console.log('Logout successful:', res.data);
                 navigate('/');
@@ -141,7 +141,7 @@ function Home() {
         const userConfirmed = window.confirm('Are you sure you want to change the approval of this user?');
         
         if (userConfirmed) {
-            axios.patch(`/users/approval/${userID}`, {approved: (!approval)}, {withCredentials: true})
+            axios.patch(`/users/approval/${userID}`, {approved: (!approval)})
             .then((res) => {
                     console.log('User approval changed:', res.data);
                     fetchUsers();
@@ -163,7 +163,7 @@ function Home() {
     const handleDeleteAllUnverified = () => {
         const userConfirmed = window.prompt('Are you sure you want to DELETE ALL Unverified Users?\nType "delete all unverified" to confirm');
         if (userConfirmed === "delete all unverified") {
-            axios.delete('/users/unverified', {withCredentials: true})
+            axios.delete('/users/unverified')
                 .then((res) => {
                     console.log("Deleted ALL unverified users", res.data);
                     fetchUsers();
@@ -177,7 +177,7 @@ function Home() {
     const handleDeleteAllUnapproved = () => {
         const userConfirmed = window.prompt('Are you sure you want to DELETE ALL Unapproved Users?\nType "delete all unapproved" to confirm');
         if (userConfirmed === "delete all unapproved") {
-            axios.delete('/users/unapproved', {withCredentials: true})
+            axios.delete('/users/unapproved')
                 .then((res) => {
                     console.log("Deleted ALL unapproved users", res.data);
                     fetchUsers();
@@ -198,7 +198,7 @@ function Home() {
 
     // Verify if user is indeed authenticated
     useEffect(() => {
-        axios.get('/user', { withCredentials: true })
+        axios.get('/user')
             .then((res) => {
                 if (res.data) {
                     console.log("Currently Logged In: ", res.data.user.name);

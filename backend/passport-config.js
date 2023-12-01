@@ -28,6 +28,7 @@ function PassportConfig(passport) {
 
     passport.serializeUser(async (user, cookie) => {
         try {
+            console.log("Serializing User");
             cookie(null, user.id);
         } catch (err) {
             console.error(err.message);
@@ -37,6 +38,7 @@ function PassportConfig(passport) {
 
     passport.deserializeUser(async (id, cookie) => {
         try {
+            console.log("Deserializing User");
             const user = await User.findById(id);
             if (user) {
                 cookie(null, user);
