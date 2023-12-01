@@ -21,7 +21,6 @@ const mongodb_url = process.env.MONGODB_URL;
 const session_secret = process.env.SESSION_SECRET || 'secret';
 
 const app = express();
-app.set('trust proxy', 1);
 
 // Connect to MongoDB and listen to port
 if (mongodb_url) {
@@ -55,6 +54,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({client: mongoose.connection.getClient()}), // To solve memory leak on deployment
+    cookie: { 
+        maxAge: 8 * 180 * 60 * 1000,
+        httpOnly: true, // Helps mitigate certain types of attacks such as Cross-Site Scripting (XSS)
+        sameSite: 'strict', // Helps protect against Cross-Site Request Forgery (CSRF) attacks
+    },
 }));
 app.use(passport.initialize());
 app.use(passport.session());

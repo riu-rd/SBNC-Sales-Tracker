@@ -32,7 +32,7 @@ function Profile() {
 
     useEffect(() => {
         axios
-            .get("/user")
+            .get("/user", { withCredentials: true })
             .then((res) => {
                 setDefaultStartDate(
                     new Date(new Date().getFullYear(), new Date().getMonth(), 1)
@@ -64,7 +64,7 @@ function Profile() {
 
     const handleLogout = () => {
         axios
-            .delete("/logout")
+            .delete("/logout", { withCredentials: true })
             .then((res) => {
                 console.log("Logout successful:", res.data);
                 navigate("/");
@@ -94,7 +94,8 @@ function Profile() {
                     currentPassword,
                     newPassword,
                     confirmPassword,
-                }
+                },
+                { withCredentials: true }
             );
             setErrorMessage(response.data.message);
             setTimeout(() => {
