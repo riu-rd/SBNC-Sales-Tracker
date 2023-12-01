@@ -42,7 +42,7 @@ else {
 // Use Middleware
 app.use(express.json());
 app.use(cors({
-    origin: true,
+    origin: "https://sbnc-tracker.web.app",
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type'],
     credentials: true
