@@ -58,6 +58,7 @@ app.use(session({
         maxAge: 8 * 180 * 60 * 1000,
         httpOnly: true, // Helps mitigate certain types of attacks such as Cross-Site Scripting (XSS)
         sameSite: 'none', // Helps protect against Cross-Site Request Forgery (CSRF) attacks
+        secure: true
     },
 }));
 app.use(passport.initialize());
