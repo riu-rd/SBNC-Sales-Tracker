@@ -54,10 +54,13 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({client: mongoose.connection.getClient()}), // To solve memory leak on deployment
+    proxy: true,
     cookie: { 
         maxAge: 8 * 180 * 60 * 1000,
         httpOnly: true, // Helps mitigate certain types of attacks such as Cross-Site Scripting (XSS)
-        sameSite: 'lax', // Helps protect against Cross-Site Request Forgery (CSRF) attacks
+        sameSite: 'none', // Helps protect against Cross-Site Request Forgery (CSRF) attacks
+        secure: true,
+        domain: "web.app"
     },
 }));
 app.use(passport.initialize());
