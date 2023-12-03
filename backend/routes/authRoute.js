@@ -1,4 +1,5 @@
 import express from "express";
+import * as crypto from "crypto"
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { checkAuthenticated, checkNotAuthenticated, verifyEmail } from "./auth.js";

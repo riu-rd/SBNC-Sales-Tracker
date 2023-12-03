@@ -37,6 +37,7 @@ function Register() {
                     console.log("User Registered Successfully: ", res.data);
                     setLoading(false);
                     navigate('/email-verification');
+                    
                 }).catch((err) => {
                     setLoading(false);
                     setIsError([true, "Error: Email already exists"]);
@@ -75,9 +76,16 @@ function Register() {
                             <label htmlFor="name" className="center">Name</label>
                             <input type="text" name="name" placeholder="Juan Dela Cruz" onChange={(e)=> setName(e.target.value)} onKeyDown={handleKeyPress} required/>
                         </div>
-                        <div className="inputName">
+                        <div className="inputName">   
                             <label htmlFor="branch" className="center">Branch</label>
-                            <input type="text" name="branch" placeholder="Branch Name" onChange={(e)=> setBranch(e.target.value)} onKeyDown={handleKeyPress} required/>
+                            <select name='branch' onChange={(e)=> setBranch(e.target.value)} onKeyDown={handleKeyPress} >
+                                <DropdownItem text={'Pasay'}/>
+                                <DropdownItem text={'Sucat'}/>
+                                <DropdownItem text={'Quezon'}/>
+                                <DropdownItem text={'Lipa'}/>
+                                <DropdownItem text={'Malvar'}/>
+                                <DropdownItem text={'Rosario'}/>
+                            </select>
                         </div>
                         <div className="inputEmail">
                             <label htmlFor="email" className="center">Email</label>
@@ -111,6 +119,14 @@ function Register() {
             </div>
         </div>
     );
+}
+
+function DropdownItem(props){
+    return(
+        <option className='dropdownItem'>
+            <div>{props.text}</div>
+        </option>
+    )
 }
 
 export default Register;

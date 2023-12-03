@@ -102,6 +102,7 @@ body {
 .inputNumber input,
 .inputPass input,
 .inputName input,
+.inputName select,
 .inputConfirmPass input {
     width: 500px;
     border: none;

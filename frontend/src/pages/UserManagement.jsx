@@ -152,6 +152,22 @@ function Home() {
                 });
         }
     };
+    
+    const handleAccessChange = (level, userID) => {
+        const userAccessChange = window.confirm('Are you sure you want to change the access level of the user?')
+
+        if (userAccessChange) {
+            axios.patch(`/users/access/${userID}`, {withCredentials: true})
+            .then((res) => {
+                console.log('User access changed:', res.data)
+
+                .catch((err) => {
+                    alert('Error changing user access')
+                    console.error('Error changing user access data:', err.message);
+                }) 
+            })
+        }
+    }
 
     // when access button is clicked
     const handleAccessClick = (user) => {
