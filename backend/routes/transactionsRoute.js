@@ -48,7 +48,6 @@ router.get("/:startdate/:enddate", async (req, res) => {
         // Default to the current month if startdate and enddate are not provided
         const startDate = req.params.startdate || new Date().toISOString();
         const endDate = req.params.enddate || new Date().toISOString();
-        console.log("Get Request From: ", startDate, " To: ", endDate);
 
         const transactions = await Transaction.find({
             date: { $gte: startDate, $lte: endDate }

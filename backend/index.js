@@ -42,7 +42,7 @@ else {
 // Use Middleware
 app.use(express.json());
 app.use(cors({
-    origin: true,
+    origin: "https://sbnc-tracker.web.app",
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type'],
     credentials: true
@@ -54,10 +54,12 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({client: mongoose.connection.getClient()}), // To solve memory leak on deployment
+    proxy: true,
     cookie: { 
         maxAge: 8 * 180 * 60 * 1000,
         httpOnly: true, // Helps mitigate certain types of attacks such as Cross-Site Scripting (XSS)
-        sameSite: 'strict', // Helps protect against Cross-Site Request Forgery (CSRF) attacks
+        sameSite: 'none', // Helps protect against Cross-Site Request Forgery (CSRF) attacks
+        secure: true,
     },
 }));
 app.use(passport.initialize());

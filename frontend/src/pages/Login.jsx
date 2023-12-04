@@ -77,20 +77,20 @@ function Login() {
                     </div>
                     <div className="remember center">
                         <label className="checkbox ">
-                            <input
+                            {/*<input
                                 type="checkbox"
                                 value="remember-me"
                                 id="rememberMe"
                                 name="rememberMe"
                             />{' '}
-                            Remember me
+                            Remember me*/}
                         </label>
                     </div>
                     <div className="center">
                         <button className="loginButton main-buttons" onClick={loginUser}>Log In </button>
                     </div>
                     <div className="center">
-                        <Link to="/forgot-password" className="forgot">Forgot Password?{''}  </Link>
+                        {/*<Link to="/forgot-password" className="forgot">Forgot Password?{''}  </Link>*/}
                     </div>
                     <div className="sign">
                         <p className="center">

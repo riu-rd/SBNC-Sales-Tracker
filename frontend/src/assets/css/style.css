@@ -88,7 +88,6 @@ body {
 .inputCode,
 .inputName,
 .inputNumber,
-.inputPass,
 .inputConfirmPass {
     display: flex;
     flex-direction: column;
@@ -96,6 +95,7 @@ body {
 
 .input {
     margin-top: 30px;
+    width:96%
 }
 
 .inputEmail input,
