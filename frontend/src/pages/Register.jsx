@@ -10,7 +10,7 @@ import Spinner from '../components/Spinner';
 
 function Register() {
     const [name, setName] = useState('');
-    const [branch, setBranch] = useState('');
+    const [branch, setBranch] = useState('Pasay');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [confpass, setConfPass] = useState('');
