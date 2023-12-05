@@ -6,14 +6,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from '../axios-config.js';
 
+import Spinner from '../components/Spinner.jsx';
+
 function Login() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const loginUser = () => {
+        setIsLoading(true);
         axios.post("/login", {
                 email: email,
                 password: pass,
@@ -21,12 +25,14 @@ function Login() {
                 withCredentials: true
             }).then((res) => {
                 console.log("User Authenticated Successfully: ", res.data);
+                setIsLoading(false);
                 setIsError(false);
                 if (res.data) {
                     navigate("/home");
                 }
             }).catch((err) => {
                 setIsError(true);
+                setIsLoading(false);
                 console.error(err.message);
             });
     };
@@ -38,19 +44,26 @@ function Login() {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get('/user', { withCredentials: true })
             .then((res) => {
                 if (res.data) {
                     navigate('/home');
+                    setIsLoading(false);
                 }
             })
             .catch((err) => {
                 console.error(err.message);
+                setIsLoading(false);
             });
     }, [navigate]);
 
     return (
-        <div>
+        isLoading ? (<>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <center><Spinner /></center>
+        </>) :
+        (<div>
             <style>
                 {`
           body {
@@ -102,7 +115,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>)
     );
 }
 

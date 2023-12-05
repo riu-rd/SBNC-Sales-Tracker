@@ -160,12 +160,10 @@ function Home() {
             axios.patch(`/users/access/${userID}`, {withCredentials: true})
             .then((res) => {
                 console.log('User access changed:', res.data)
-
-                .catch((err) => {
-                    alert('Error changing user access')
-                    console.error('Error changing user access data:', err.message);
-                }) 
-            })
+            }).catch((err) => {
+                alert('Error changing user access')
+                console.error('Error changing user access data:', err.message);
+            }) 
         }
     }
 
