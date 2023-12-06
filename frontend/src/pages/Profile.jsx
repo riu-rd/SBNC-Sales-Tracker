@@ -194,8 +194,7 @@ function Profile() {
                         <>
                             <div
                                 className="modal-overlay"
-                                onClick={() => setIsChangePasswordOpen(false)}
-                            ></div>
+                            >
                             <div className="modal">
 
                                 <h2>Change Password</h2>
@@ -247,6 +246,7 @@ function Profile() {
                                     </div>
 
                                 </form>
+                            </div>
                             </div>
                         </>
                     )}
