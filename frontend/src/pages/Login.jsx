@@ -44,17 +44,14 @@ function Login() {
     };
 
     useEffect(() => {
-        setIsLoading(true);
         axios.get('/user', { withCredentials: true })
             .then((res) => {
                 if (res.data) {
                     navigate('/home');
-                    setIsLoading(false);
                 }
             })
             .catch((err) => {
                 console.error(err.message);
-                setIsLoading(false);
             });
     }, [navigate]);
 
